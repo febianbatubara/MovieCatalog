@@ -5,7 +5,8 @@ data class MovieEntity(
     var title: String,
     var description: String,
     var releaseDate: String,
-    var imagePath: String,
+    var genre: String,
     var rating: String,
+    var posterPath: String,
     var favorited: Boolean = false
 )
