@@ -23,14 +23,25 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/gordita_regular</item>
-        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextContent.Medium">
+        <item name="android:fontFamily">@font/gordita_medium</item>
     </style>
 
     <style name="TextContent.Bold">
         <item name="android:fontFamily">@font/gordita_bold</item>
     </style>
 
-    <style name="TextContent.Bold.Dark">
-        <item name="android:textColor">@color/blue_500</item>
+    <style name="ImageButtonGeneral">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="TabTitleText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="fontFamily">@font/gordita_bold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>
