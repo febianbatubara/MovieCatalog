@@ -1,6 +1,8 @@
 package com.febian.android.moviecatalog.ui.movie
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,22 +25,38 @@ class MovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (activity != null) {
-            val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[MovieViewModel::class.java]
 
-            val movies = viewModel.getMovies()
+        showLoading(true)
 
-            val movieAdapter = MovieAdapter()
-            movieAdapter.setMovies(movies)
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (activity != null) {
+                val viewModel = ViewModelProvider(
+                    this,
+                    ViewModelProvider.NewInstanceFactory()
+                )[MovieViewModel::class.java]
 
-            with(movieBinding.rvMovies) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = movieAdapter
+                val movies = viewModel.getMovies()
+
+                val movieAdapter = MovieAdapter()
+                movieAdapter.setMovies(movies)
+
+                with(movieBinding.rvMovies) {
+                    layoutManager = LinearLayoutManager(context)
+                    setHasFixedSize(true)
+                    adapter = movieAdapter
+                }
+                showLoading(false)
             }
+        }, 1000)
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            movieBinding.rvMovies.visibility = View.GONE
+            movieBinding.rvMoviesShimmerContainer.visibility = View.VISIBLE
+        } else {
+            movieBinding.rvMovies.visibility = View.VISIBLE
+            movieBinding.rvMoviesShimmerContainer.visibility = View.GONE
         }
     }
 

@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#D4AF37</color>
     <color name="placeholder">#6FB6B6B6</color>
+    <color name="lightGrey100">#E1E1E1</color>
 </resources>

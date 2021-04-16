@@ -6,8 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.febian.android.moviecatalog.ui.home.HomeActivity
 import com.febian.android.moviecatalog.R
+import com.febian.android.moviecatalog.ui.home.HomeActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

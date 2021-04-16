@@ -23,6 +23,8 @@ class TvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showLoading(true)
+
         if (activity != null) {
             val viewModel = ViewModelProvider(
                 this,
@@ -34,13 +36,23 @@ class TvShowFragment : Fragment() {
             val tvShowAdapter = TvShowAdapter()
             tvShowAdapter.setTvShows(tvShows)
 
-            with(tvShowBinding.rvTvShow) {
+            with(tvShowBinding.rvTvShows) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tvShowAdapter
             }
+            showLoading(false)
         }
     }
 
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            tvShowBinding.rvTvShows.visibility = View.GONE
+            tvShowBinding.rvTvShowsShimmerContainer.visibility = View.VISIBLE
+        } else {
+            tvShowBinding.rvTvShows.visibility = View.VISIBLE
+            tvShowBinding.rvTvShowsShimmerContainer.visibility = View.GONE
+        }
+    }
 
 }
