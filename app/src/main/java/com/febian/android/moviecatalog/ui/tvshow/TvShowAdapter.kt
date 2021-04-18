@@ -1,5 +1,6 @@
 package com.febian.android.moviecatalog.ui.tvshow
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
+import com.febian.android.moviecatalog.ui.detail.MovieDetailActivity
+import com.febian.android.moviecatalog.ui.detail.TvShowDetailActivity
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
@@ -48,11 +51,11 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                     )
                     .into(imgPoster)
 
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailCourseActivity::class.java)
-//                    intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.courseId)
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, TvShowDetailActivity::class.java)
+                    intent.putExtra(TvShowDetailActivity.EXTRA_TV_SHOW, tvShow.tvShowId)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }

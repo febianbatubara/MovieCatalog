@@ -1,6 +1,8 @@
 package com.febian.android.moviecatalog.ui.tvshow
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,24 +27,26 @@ class TvShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showLoading(true)
 
-        if (activity != null) {
-            val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[TvShowViewModel::class.java]
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (activity != null) {
+                val viewModel = ViewModelProvider(
+                    this,
+                    ViewModelProvider.NewInstanceFactory()
+                )[TvShowViewModel::class.java]
 
-            val tvShows = viewModel.getTvShows()
+                val tvShows = viewModel.getTvShows()
 
-            val tvShowAdapter = TvShowAdapter()
-            tvShowAdapter.setTvShows(tvShows)
+                val tvShowAdapter = TvShowAdapter()
+                tvShowAdapter.setTvShows(tvShows)
 
-            with(tvShowBinding.rvTvShows) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = tvShowAdapter
+                with(tvShowBinding.rvTvShows) {
+                    layoutManager = LinearLayoutManager(context)
+                    setHasFixedSize(true)
+                    adapter = tvShowAdapter
+                }
+                showLoading(false)
             }
-            showLoading(false)
-        }
+        }, 1000)
     }
 
     private fun showLoading(state: Boolean) {

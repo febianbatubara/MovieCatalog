@@ -182,7 +182,7 @@ object DummyDataFactory {
                 "Drama, Sci-Fi & Fantasy",
                 "7.7",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
-                "https://image.tmdb.org/t/p/w780",
+                "https://image.tmdb.org/t/p/w780/z59kJfcElR9eHO9rJbWp4qWMuee.jpg",
                 false
             )
         )
@@ -195,7 +195,7 @@ object DummyDataFactory {
                 "Mystery, Drama, Crime",
                 "8.6",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
-                "https://image.tmdb.org/t/p/w780/z59kJfcElR9eHO9rJbWp4qWMuee.jpg",
+                "https://image.tmdb.org/t/p/w780/qZtAf4Z1lazGQoYVXiHOrvLr5lI.jpg",
                 false
             )
         )
