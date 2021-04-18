@@ -1,5 +1,6 @@
 package com.febian.android.moviecatalog.ui.movie
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
+import com.febian.android.moviecatalog.ui.detail.MovieDetailActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -48,11 +50,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                     )
                     .into(imgPoster)
 
-//                itemView.setOnClickListener {
-//                    val intent = Intent(itemView.context, DetailCourseActivity::class.java)
-//                    intent.putExtra(DetailCourseActivity.EXTRA_COURSE, course.courseId)
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, MovieDetailActivity::class.java)
+                    intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movie.movieId)
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }

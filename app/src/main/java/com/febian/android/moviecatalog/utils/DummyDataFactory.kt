@@ -18,6 +18,7 @@ object DummyDataFactory {
                 "Action, Science Fiction",
                 "8.3",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+                "https://image.tmdb.org/t/p/w780/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg",
                 false
             )
         )
@@ -30,6 +31,7 @@ object DummyDataFactory {
                 "Action, Adventure, Fantasy, Science Fiction",
                 "8.5",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
+                "https://image.tmdb.org/t/p/w780/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg",
                 false
             )
         )
@@ -42,6 +44,7 @@ object DummyDataFactory {
                 "Science Fiction, Action, Adventure, Thriller",
                 "7.4",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9kg73Mg8WJKlB9Y2SAJzeDKAnuB.jpg",
+                "https://image.tmdb.org/t/p/w780/5NxjLfs7Bi07bfZCRl9CCnUw7AA.jpg",
                 false
             )
         )
@@ -54,6 +57,7 @@ object DummyDataFactory {
                 "Animation, Adventure, Fantasy, Family, Action",
                 "8.3",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
+                "https://image.tmdb.org/t/p/w780/7prYzufdIOy1KCTZKVWpjBFqqNr.jpg",
                 false
             )
         )
@@ -66,6 +70,7 @@ object DummyDataFactory {
                 "Comedy, Family, Animation",
                 "7.3",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
+                "https://image.tmdb.org/t/p/w780/fev8UFNFFYsD5q7AcYS8LyTzqwl.jpg",
                 false
             )
         )
@@ -78,6 +83,7 @@ object DummyDataFactory {
                 "Animation, Comedy, Fantasy",
                 "7.2",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4ZSzEDVdxWVMVO4oZDvoodQOEfr.jpg",
+                "https://image.tmdb.org/t/p/w780/9Is9OrQUnKczCfsLSbsbx8YSmES.jpg",
                 false
             )
         )
@@ -90,6 +96,7 @@ object DummyDataFactory {
                 "Action, Crime, Thriller",
                 "6.4",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dWSnsAGTfc8U27bWsy2RfwZs0Bs.jpg",
+                "https://image.tmdb.org/t/p/w780/6TPZSJ06OEXeelx1U1VIAt0j9Ry.jpg",
                 false
             )
         )
@@ -102,6 +109,7 @@ object DummyDataFactory {
                 "Drama, Fantasy, Science Fiction",
                 "7.2",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bmemsraCG1kIthY74NjDnnLRT2Q.jpg",
+                "https://image.tmdb.org/t/p/w780/drulhSX7P5TQlEMQZ3JoXKSDEfz.jpg",
                 false
             )
         )
@@ -114,6 +122,7 @@ object DummyDataFactory {
                 "Family, Fantasy, Animation, Comedy",
                 "7.5",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tbVZ3Sq88dZaCANlUcewQuHQOaE.jpg",
+                "https://image.tmdb.org/t/p/w780/cjaOSjsjV6cl3uXdJqimktT880L.jpg",
                 false
             )
         )
@@ -126,6 +135,7 @@ object DummyDataFactory {
                 "Family, Animation, Comedy, Drama, Music, Fantasy",
                 "8.3",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg",
+                "https://image.tmdb.org/t/p/w780/kf456ZqeC45XTvo6W9pW5clYKfQ.jpg",
                 false
             )
         )
@@ -146,6 +156,7 @@ object DummyDataFactory {
                 "Sci-Fi & Fantasy, Action & Adventure, Drama, War & Politics",
                 "7.8",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                "https://image.tmdb.org/t/p/w780/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
                 false
             )
         )
@@ -158,6 +169,7 @@ object DummyDataFactory {
                 "Drama",
                 "8.6",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
+                "https://image.tmdb.org/t/p/w780/mZjZgY6ObiKtVuKVDrnS9VnuNlE.jpg",
                 false
             )
         )
@@ -170,6 +182,7 @@ object DummyDataFactory {
                 "Drama, Sci-Fi & Fantasy",
                 "7.7",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                "https://image.tmdb.org/t/p/w780",
                 false
             )
         )
@@ -182,6 +195,7 @@ object DummyDataFactory {
                 "Mystery, Drama, Crime",
                 "8.6",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+                "https://image.tmdb.org/t/p/w780/z59kJfcElR9eHO9rJbWp4qWMuee.jpg",
                 false
             )
         )
@@ -194,6 +208,7 @@ object DummyDataFactory {
                 "Drama",
                 "8.2",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "https://image.tmdb.org/t/p/w780/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg",
                 false
             )
         )
@@ -206,6 +221,7 @@ object DummyDataFactory {
                 "Animation, Action & Adventure, Drama",
                 "8.9",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                "https://image.tmdb.org/t/p/w780/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg",
                 false
             )
         )
@@ -218,6 +234,7 @@ object DummyDataFactory {
                 "Drama, Crime, Mystery",
                 "7.8",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
+                "https://image.tmdb.org/t/p/w780/pLG4ihU1d2XkQbASQDjsFu9U7d9.jpg",
                 false
             )
         )
@@ -230,6 +247,7 @@ object DummyDataFactory {
                 "Crime, Sci-Fi & Fantasy",
                 "8.5",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                "https://image.tmdb.org/t/p/w780/ta5oblpMlEcIPIS2YGcq9XEkWK2.jpg",
                 false
             )
         )
@@ -242,6 +260,7 @@ object DummyDataFactory {
                 "Action & Adventure, Drama, Sci-Fi & Fantasy",
                 "8.1",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
+                "https://image.tmdb.org/t/p/w780/uro2Khv7JxlzXtLb8tCIbRhkb9E.jpg",
                 false
             )
         )
@@ -254,6 +273,7 @@ object DummyDataFactory {
                 "Action & Adventure, Sci-Fi & Fantasy",
                 "8.3",
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6SJppowm7cdQgLkvoTlnTUSbjr9.jpg",
+                "https://image.tmdb.org/t/p/w780/gmbsR4SvYhhj4SvLAlTKxIkFxp9.jpg",
                 false
             )
         )

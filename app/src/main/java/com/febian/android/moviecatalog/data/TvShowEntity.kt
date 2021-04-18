@@ -8,5 +8,6 @@ data class TvShowEntity(
     var genre: String,
     var rating: String,
     var posterPath: String,
+    var posterBgPath: String,
     var favorited: Boolean = false
 )
