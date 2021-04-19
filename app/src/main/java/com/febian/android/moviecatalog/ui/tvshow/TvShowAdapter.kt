@@ -9,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
-import com.febian.android.moviecatalog.ui.detail.MovieDetailActivity
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailActivity
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
