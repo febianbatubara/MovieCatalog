@@ -1,8 +1,6 @@
 package com.febian.android.moviecatalog.ui.movie
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,26 +26,24 @@ class MovieFragment : Fragment() {
 
         showLoading(true)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (activity != null) {
-                val viewModel = ViewModelProvider(
-                    this,
-                    ViewModelProvider.NewInstanceFactory()
-                )[MovieViewModel::class.java]
+        if (activity != null) {
+            val viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[MovieViewModel::class.java]
 
-                val movies = viewModel.getMovies()
+            val movies = viewModel.getMovies()
 
-                val movieAdapter = MovieAdapter()
-                movieAdapter.setMovies(movies)
+            val movieAdapter = MovieAdapter()
+            movieAdapter.setMovies(movies)
 
-                with(movieBinding.rvMovies) {
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = movieAdapter
-                }
-                showLoading(false)
+            with(movieBinding.rvMovies) {
+                layoutManager = LinearLayoutManager(context)
+                setHasFixedSize(true)
+                adapter = movieAdapter
             }
-        }, 1000)
+            showLoading(false)
+        }
     }
 
     private fun showLoading(state: Boolean) {

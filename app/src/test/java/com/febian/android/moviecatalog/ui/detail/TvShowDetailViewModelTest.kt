@@ -1,10 +1,13 @@
 package com.febian.android.moviecatalog.ui.detail
 
 import com.febian.android.moviecatalog.utils.DummyDataFactory
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 
 class TvShowDetailViewModelTest {
 
@@ -17,6 +20,9 @@ class TvShowDetailViewModelTest {
         viewModel = TvShowDetailViewModel()
         viewModel.setSelectedTvShow(tvShowId)
     }
+
+    @get:Rule
+    var thrown: ExpectedException = ExpectedException.none()
 
     @Test
     fun getTvShow() {
@@ -31,5 +37,16 @@ class TvShowDetailViewModelTest {
         assertEquals(dummyTvShow.rating, tvShowEntity.rating)
         assertEquals(dummyTvShow.posterPath, tvShowEntity.posterPath)
         assertEquals(dummyTvShow.posterBgPath, tvShowEntity.posterBgPath)
+    }
+
+    @Test
+    fun getEmptyMovie() {
+        thrown.expect(java.lang.IndexOutOfBoundsException::class.java)
+        thrown.expectMessage("Index: 10, Size: 10")
+
+        val falseDummyMovie = DummyDataFactory.generateDummyMovies()[10]
+        viewModel.setSelectedTvShow(falseDummyMovie.movieId)
+        val movieEntity = viewModel.getTvShow()
+        Assert.assertNull(movieEntity)
     }
 }
