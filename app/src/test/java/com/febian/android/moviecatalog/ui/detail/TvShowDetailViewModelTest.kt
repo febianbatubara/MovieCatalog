@@ -40,7 +40,7 @@ class TvShowDetailViewModelTest {
     }
 
     @Test
-    fun getEmptyMovie() {
+    fun getEmptyTvShow() {
         thrown.expect(java.lang.IndexOutOfBoundsException::class.java)
         thrown.expectMessage("Index: 10, Size: 10")
 
