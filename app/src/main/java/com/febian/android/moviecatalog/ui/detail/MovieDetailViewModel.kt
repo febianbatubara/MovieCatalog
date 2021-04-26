@@ -16,7 +16,7 @@ class MovieDetailViewModel : ViewModel() {
         lateinit var movie: MovieEntity
         val moviesEntities = DummyDataFactory.generateDummyMovies()
         for (movieEntity in moviesEntities) {
-            if (movieEntity.movieId == movieId) {
+            if (movieEntity.movieId.toString() == movieId) {
                 movie = movieEntity
             }
         }

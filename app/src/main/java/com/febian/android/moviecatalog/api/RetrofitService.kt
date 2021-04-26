@@ -1,4 +1,4 @@
-package com.febian.android.moviecatalog.data.source.remote.api
+package com.febian.android.moviecatalog.api
 
 import com.febian.android.moviecatalog.BuildConfig
 import okhttp3.OkHttpClient

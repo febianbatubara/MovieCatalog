@@ -54,7 +54,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     Check out this awesome movie.
                     
                     Title: ${movie.title}
-                    Genre: ${movie.genre}
+                    Genre: ${movie.genreIds}
                     Rating: "${movie.rating}/10"
                     Release date: ${movie.releaseDate}
                 """.trimIndent()
@@ -68,8 +68,8 @@ class MovieDetailActivity : AppCompatActivity() {
         with(movieDetailBinding) {
             tvTitle.text = movie.title
             tvReleaseDate.text = getString(R.string.release_date, movie.releaseDate)
-            tvGenre.text = movie.genre
-            tvRating.text = getString(R.string.rating, movie.rating)
+            tvGenre.text = movie.genreIds.toString()
+            tvRating.text = getString(R.string.rating, movie.rating.toString())
             tvDescription.text = movie.description
 
             Glide.with(this@MovieDetailActivity)

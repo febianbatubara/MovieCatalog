@@ -40,8 +40,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             with(binding) {
                 tvItemTitle.text = movie.title
                 tvItemDate.text = movie.releaseDate
-                tvRating.text = movie.rating
-                tvItemGenre.text = movie.genre
+                tvRating.text = movie.rating.toString()
+                tvItemGenre.text = movie.genreIds.toString()
                 Glide.with(itemView.context)
                     .load(movie.posterPath)
                     .apply(

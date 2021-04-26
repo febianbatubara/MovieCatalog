@@ -6,9 +6,9 @@ import com.febian.android.moviecatalog.utils.DummyDataFactory
 
 class TvShowDetailViewModel : ViewModel() {
 
-    private lateinit var tvShowId: String
+    private var tvShowId: Int = 0
 
-    fun setSelectedTvShow(tvShowId: String) {
+    fun setSelectedTvShow(tvShowId: Int) {
         this.tvShowId = tvShowId
     }
 

@@ -33,7 +33,7 @@ class TvShowDetailActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            val tvShowId = extras.getString(EXTRA_TV_SHOW)
+            val tvShowId = extras.getInt(EXTRA_TV_SHOW)
             if (tvShowId != null) {
                 viewModel.setSelectedTvShow(tvShowId)
                 showDetail(viewModel.getTvShow())
@@ -53,7 +53,7 @@ class TvShowDetailActivity : AppCompatActivity() {
                     Check out this awesome tv show.
                     
                     Title: ${tvShow.title}
-                    Genre: ${tvShow.genre}
+                    Genre: ${tvShow.genreIds}
                     Rating: "${tvShow.rating}/10"
                     Release date: ${tvShow.releaseDate}
                 """.trimIndent()
@@ -67,8 +67,8 @@ class TvShowDetailActivity : AppCompatActivity() {
         with(detailBinding) {
             tvTitle.text = tvShow.title
             tvReleaseDate.text = getString(R.string.release_date, tvShow.releaseDate)
-            tvGenre.text = tvShow.genre
-            tvRating.text = getString(R.string.rating, tvShow.rating)
+            tvGenre.text = tvShow.genreIds.toString()
+            tvRating.text = getString(R.string.rating, tvShow.rating.toString())
             tvDescription.text = tvShow.description
 
             Glide.with(this@TvShowDetailActivity)
