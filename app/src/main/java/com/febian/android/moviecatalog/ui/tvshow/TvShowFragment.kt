@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
+import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
 class TvShowFragment : Fragment() {
 
@@ -26,12 +27,12 @@ class TvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading(true)
 
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[TvShowViewModel::class.java]
 
             showLoading(true)

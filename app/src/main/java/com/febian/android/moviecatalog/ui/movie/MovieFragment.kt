@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
+import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
 
@@ -28,9 +29,10 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[MovieViewModel::class.java]
 
             showLoading(true)
