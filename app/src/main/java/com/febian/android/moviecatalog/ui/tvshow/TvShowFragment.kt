@@ -64,5 +64,4 @@ class TvShowFragment : Fragment() {
             tvShowBinding.rvTvShowsShimmerContainer.visibility = View.GONE
         }
     }
-
 }

@@ -1,9 +1,8 @@
 package com.febian.android.moviecatalog.data.source.remote.response
 
-import com.febian.android.moviecatalog.data.TvShowEntity
 import com.google.gson.annotations.SerializedName
 
-data class TvShowResponse(
+data class TvShowResponse<TvShowEntity>(
 
     @field:SerializedName("page")
     var page: Int,

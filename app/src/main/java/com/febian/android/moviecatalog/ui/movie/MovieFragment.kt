@@ -36,8 +36,8 @@ class MovieFragment : Fragment() {
             )[MovieViewModel::class.java]
 
             showLoading(true)
-            setUpRecyclerView()
             viewModel.getMovies().observe(viewLifecycleOwner, movieObserver)
+            setUpRecyclerView()
         }
     }
 
@@ -64,5 +64,4 @@ class MovieFragment : Fragment() {
             movieBinding.rvMoviesShimmerContainer.visibility = View.GONE
         }
     }
-
 }

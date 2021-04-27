@@ -21,7 +21,10 @@ interface ApiInterface {
     ): Call<MovieResponse<MovieEntity>>
 
     @GET("discover/tv?api_key=${BuildConfig.API_KEY}&language=en-US")
-    fun getPopularTvShows(): Call<TvShowResponse>
+    fun getPopularTvShows(
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = Constant.language
+    ): Call<TvShowResponse<TvShowEntity>>
 
     @GET("users/{username}")
     @Headers("Authorization: token ${BuildConfig.API_KEY}")

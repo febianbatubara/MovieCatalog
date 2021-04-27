@@ -45,21 +45,6 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                         }
                     }
                     movieResults.postValue(movieList)
-//                    for (response in movieResponses) {
-//                        val movie = MovieEntity(
-//                            response.movieId,
-//                            response.title,
-//                            response.description,
-//                            response.releaseDate,
-//                            response.genreIds,
-//                            response.rating,
-//                            response.posterPath,
-//                            response.posterBgPath,
-//                            false
-//                        )
-//                        movieList.add(movie)
-//                    }
-//                    movieResults.postValue(movieList)
                 }
             })
         }
@@ -67,12 +52,31 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
     }
 
     override fun getPopularTvShows(): LiveData<List<TvShowEntity>> {
-        var tvShowResults = MutableLiveData<List<TvShowEntity>>()
-        remoteDataSource.getPopularTvShows(object : RemoteDataSource.LoadTvShowsCallback {
-            override fun onAllTvShowsReceived(tvShowsResponses: MutableLiveData<List<TvShowEntity>>) {
-                tvShowResults = tvShowsResponses
-            }
-        })
+        val tvShowResults = MutableLiveData<List<TvShowEntity>>()
+        CoroutineScope(IO).launch {
+            remoteDataSource.getPopularTvShows(object : RemoteDataSource.LoadTvShowsCallback {
+                override fun onAllTvShowsReceived(tvShowsResponses: List<TvShowEntity>) {
+                    val tvShowList = ArrayList<TvShowEntity>()
+                    tvShowsResponses.forEach { response ->
+                        with(response) {
+                            val tvShow = TvShowEntity(
+                                tvShowId,
+                                title,
+                                description,
+                                releaseDate,
+                                genreIds,
+                                rating,
+                                posterPath,
+                                posterBgPath,
+                                false
+                            )
+                            tvShowList.add(tvShow)
+                        }
+                    }
+                    tvShowResults.postValue(tvShowList)
+                }
+            })
+        }
         return tvShowResults
     }
 }
