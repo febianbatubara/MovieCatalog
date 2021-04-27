@@ -2,7 +2,6 @@ package com.febian.android.moviecatalog.api
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
 import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
@@ -16,27 +15,27 @@ class ApiCall {
         private const val TAG = "RemoteDataSource"
     }
 
-    fun getPopularMoviesApiCall(): MutableLiveData<List<MovieEntity>> {
-        val movieList = MutableLiveData<List<MovieEntity>>()
-        val call = RetrofitService.apiInterface.getPopularMovies()
-        call.enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-                if (response.isSuccessful) {
-                    movieList.postValue(response.body()?.results)
-                } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-        return movieList
-    }
+//    fun getPopularMoviesApiCall(): MutableLiveData<MovieResponse> {
+//        val movieResponse = MutableLiveData<MovieResponse>()
+//        val call = RetrofitService.apiInterface.getPopularMovies()
+//        call.enqueue(object : Callback<MovieResponse> {
+//            override fun onResponse(
+//                call: Call<MovieResponse>,
+//                response: Response<MovieResponse>
+//            ) {
+//                if (response.isSuccessful) {
+//                    movieResponse.postValue(response.body())
+//                } else {
+//                    Log.e(TAG, "onFailure: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+//                Log.e(TAG, "onFailure: ${t.message.toString()}")
+//            }
+//        })
+//        return movieResponse
+//    }
 
 //    fun getPopularMoviesApiCall(): MutableLiveData<List<MovieEntity>> {
 //        val movieList = MutableLiveData<List<MovieEntity>>()
@@ -61,7 +60,7 @@ class ApiCall {
 //    }
 
     fun getPopularTvShowsApiCall(): MutableLiveData<List<TvShowEntity>> {
-        val movieList = MutableLiveData<List<TvShowEntity>>()
+        val tvShowList = MutableLiveData<List<TvShowEntity>>()
         val call = RetrofitService.apiInterface.getPopularTvShows()
         call.enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(
@@ -69,7 +68,7 @@ class ApiCall {
                 response: Response<TvShowResponse>
             ) {
                 if (response.isSuccessful) {
-                    movieList.postValue(response.body()?.results)
+                    tvShowList.postValue(response.body()?.results)
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -79,6 +78,6 @@ class ApiCall {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
-        return movieList
+        return tvShowList
     }
 }

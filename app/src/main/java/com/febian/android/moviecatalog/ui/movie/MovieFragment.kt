@@ -29,25 +29,25 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(
                 this,
                 factory
             )[MovieViewModel::class.java]
 
             showLoading(true)
-            viewModel.getMovies().observe(viewLifecycleOwner, moviesObserver)
             setUpRecyclerView()
+            viewModel.getMovies().observe(viewLifecycleOwner, movieObserver)
         }
     }
 
-    private val moviesObserver: Observer<List<MovieEntity>> =
+    private val movieObserver: Observer<List<MovieEntity>> =
         Observer { movies ->
-            movies?.let { movieAdapter.setMovies(it) }
             showLoading(false)
+            movies?.let { movieAdapter.setMovies(it) }
         }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         with(movieBinding.rvMovies) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

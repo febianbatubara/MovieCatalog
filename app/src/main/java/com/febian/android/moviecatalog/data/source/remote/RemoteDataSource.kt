@@ -4,11 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import com.febian.android.moviecatalog.api.ApiCall
+import com.febian.android.moviecatalog.api.ApiInterface
+import com.febian.android.moviecatalog.api.RetrofitService
 import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.data.TvShowEntity
-import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
-import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
 import com.febian.android.moviecatalog.utils.EspressoIdlingResource
+import retrofit2.await
 
 class RemoteDataSource private constructor(private val apiCall: ApiCall) {
 
@@ -27,15 +28,19 @@ class RemoteDataSource private constructor(private val apiCall: ApiCall) {
             }
     }
 
-    fun getPopularMovies(callback: LoadMoviesCallback) {
+    suspend fun getPopularMovies(callback: LoadMoviesCallback) {
+//        EspressoIdlingResource.increment()
+//        callback.onAllMoviesReceived(apiCall.getPopularMoviesApiCall())
+//        EspressoIdlingResource.decrement()
+
         EspressoIdlingResource.increment()
-        handler.postDelayed(
-            {
-                callback.onAllMoviesReceived(apiCall.getPopularMoviesApiCall())
-                EspressoIdlingResource.decrement()
-            },
-            SERVICE_LATENCY_IN_MILLIS
-        )
+        RetrofitService.apiInterface.getPopularMovies().await().results.let { movieList ->
+            callback.onAllMoviesReceived(
+                movieList
+            )
+            EspressoIdlingResource.decrement()
+        }
+
     }
 
     fun getPopularTvShows(callback: LoadTvShowsCallback) {
@@ -62,7 +67,7 @@ class RemoteDataSource private constructor(private val apiCall: ApiCall) {
 //    }
 
     interface LoadMoviesCallback {
-        fun onAllMoviesReceived(movieResponses: MutableLiveData<List<MovieEntity>>)
+        fun onAllMoviesReceived(movieResponses: List<MovieEntity>)
     }
 
     interface LoadTvShowsCallback {

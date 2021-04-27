@@ -1,6 +1,7 @@
 package com.febian.android.moviecatalog.api
 
 import com.febian.android.moviecatalog.BuildConfig
+import com.febian.android.moviecatalog.utils.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,8 +10,6 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitService {
-
-    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     private val retrofitService by lazy {
         val logging = HttpLoggingInterceptor()
@@ -23,7 +22,7 @@ object RetrofitService {
         okHttpClient.addInterceptor(logging)
 
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constant.BASE_URL)
             .client(okHttpClient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -1,9 +1,8 @@
 package com.febian.android.moviecatalog.data.source.remote.response
 
-import com.febian.android.moviecatalog.data.MovieEntity
 import com.google.gson.annotations.SerializedName
 
-data class MovieResponse(
+data class MovieResponse<MovieEntity>(
 
     @field:SerializedName("page")
     var page: Int,
