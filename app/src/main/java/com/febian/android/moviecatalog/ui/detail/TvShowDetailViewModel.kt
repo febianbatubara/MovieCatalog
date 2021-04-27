@@ -1,10 +1,11 @@
 package com.febian.android.moviecatalog.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.febian.android.moviecatalog.data.TvShowEntity
-import com.febian.android.moviecatalog.utils.DummyDataFactory
+import com.febian.android.moviecatalog.data.source.CatalogRepository
 
-class TvShowDetailViewModel : ViewModel() {
+class TvShowDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
     private var tvShowId: Int = 0
 
@@ -12,14 +13,5 @@ class TvShowDetailViewModel : ViewModel() {
         this.tvShowId = tvShowId
     }
 
-    fun getTvShow(): TvShowEntity {
-        lateinit var tvShow: TvShowEntity
-        val tvShowsEntities = DummyDataFactory.generateDummyTvShows()
-        for (tvShowEntity in tvShowsEntities) {
-            if (tvShowEntity.tvShowId == tvShowId) {
-                tvShow = tvShowEntity
-            }
-        }
-        return tvShow
-    }
+    fun getTvShow(): LiveData<TvShowEntity> = catalogRepository.getTvShowDetail(tvShowId)
 }

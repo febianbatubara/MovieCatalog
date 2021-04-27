@@ -43,9 +43,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tvItemTitle.text = movie.title
                 tvItemDate.text = movie.releaseDate
                 tvRating.text = movie.rating.toString()
-                tvItemGenre.text = GenreConverter.getGenres(movie.genreIds)
+                tvItemGenre.text = movie.genreIds?.let { GenreConverter.getGenres(it) }
                 Glide.with(itemView.context)
-                    .load("${Constant.POSTER_PATH}${movie.posterPath}")
+                    .load(Constant.POSTER_PATH + movie.posterPath)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

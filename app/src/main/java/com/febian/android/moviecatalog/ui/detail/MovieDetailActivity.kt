@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -12,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.databinding.ActivityMovieDetailBinding
+import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -27,23 +30,28 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailBinding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(movieDetailBinding.root)
 
+        val factory = ViewModelFactory.getInstance()
         viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            factory
         )[MovieDetailViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
-            val movieId = extras.getString(EXTRA_MOVIE)
-            if (movieId != null) {
-                viewModel.setSelectedMovie(movieId)
-                showDetail(viewModel.getMovie())
-            }
+            val movieId = extras.getInt(EXTRA_MOVIE)
+            viewModel.setSelectedMovie(movieId)
+            viewModel.getMovie().observe(this, movieDetailObserver)
         }
 
         movieDetailBinding.btnBack.setOnClickListener { this@MovieDetailActivity.finish() }
-        movieDetailBinding.btnShare.setOnClickListener { shareData(viewModel.getMovie()) }
     }
+
+    private val movieDetailObserver: Observer<MovieEntity> =
+        Observer { movie ->
+//            showLoading(false)
+            showDetail(movie)
+            movieDetailBinding.btnShare.setOnClickListener { shareData(movie) }
+        }
 
     private fun shareData(movie: MovieEntity) {
         val shareIntent: Intent = Intent().apply {
@@ -54,7 +62,6 @@ class MovieDetailActivity : AppCompatActivity() {
                     Check out this awesome movie.
                     
                     Title: ${movie.title}
-                    Genre: ${movie.genreIds}
                     Rating: "${movie.rating}/10"
                     Release date: ${movie.releaseDate}
                 """.trimIndent()
@@ -68,12 +75,17 @@ class MovieDetailActivity : AppCompatActivity() {
         with(movieDetailBinding) {
             tvTitle.text = movie.title
             tvReleaseDate.text = getString(R.string.release_date, movie.releaseDate)
-            tvGenre.text = movie.genreIds.toString()
+
+            val genreList = ArrayList<String>()
+            movie.genres?.forEach {
+                genreList.add(it.name)
+            }
+            tvGenre.text = genreList.joinToString(", ")
             tvRating.text = getString(R.string.rating, movie.rating.toString())
             tvDescription.text = movie.description
 
             Glide.with(this@MovieDetailActivity)
-                .load(movie.posterPath)
+                .load(Constant.POSTER_PATH + movie.posterPath)
                 .transform(RoundedCorners(16))
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
@@ -82,7 +94,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 .into(ivPoster)
 
             Glide.with(this@MovieDetailActivity)
-                .load(movie.posterBgPath)
+                .load(Constant.POSTER_BG_PATH + movie.posterBgPath)
                 .placeholder(ColorDrawable(Color.LTGRAY))
                 .into(ivPosterBg)
         }

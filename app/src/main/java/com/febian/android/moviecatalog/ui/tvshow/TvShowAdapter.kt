@@ -43,9 +43,9 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                 tvItemTitle.text = tvShow.title
                 tvItemDate.text = tvShow.releaseDate
                 tvRating.text = tvShow.rating.toString()
-                tvItemGenre.text = GenreConverter.getGenres(tvShow.genreIds)
+                tvItemGenre.text = tvShow.genreIds?.let { GenreConverter.getGenres(it) }
                 Glide.with(itemView.context)
-                    .load("${Constant.POSTER_PATH}${tvShow.posterPath}")
+                    .load(Constant.POSTER_PATH + tvShow.posterPath)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

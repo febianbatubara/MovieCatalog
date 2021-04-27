@@ -17,7 +17,10 @@ data class MovieEntity(
     var releaseDate: String,
 
     @field:SerializedName("genre_ids")
-    var genreIds: List<Int>,
+    var genreIds: List<Int>? = listOf(),
+
+    @field:SerializedName("genres")
+    var genres: List<GenreEntity>? = listOf(),
 
     @field:SerializedName("vote_average")
     var rating: Float,
