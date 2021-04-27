@@ -11,6 +11,7 @@ import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
 import com.febian.android.moviecatalog.ui.detail.MovieDetailActivity
 import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.utils.GenreConverter
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -42,7 +43,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 tvItemTitle.text = movie.title
                 tvItemDate.text = movie.releaseDate
                 tvRating.text = movie.rating.toString()
-                tvItemGenre.text = movie.genreIds.toString()
+                tvItemGenre.text = GenreConverter.getGenres(movie.genreIds)
                 Glide.with(itemView.context)
                     .load("${Constant.POSTER_PATH}${movie.posterPath}")
                     .apply(
