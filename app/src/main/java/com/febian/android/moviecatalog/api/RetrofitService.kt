@@ -32,5 +32,4 @@ object RetrofitService {
         retrofitService
             .create(ApiInterface::class.java)
     }
-
 }

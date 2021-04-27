@@ -10,4 +10,7 @@ interface CatalogDataSource {
 
     fun getPopularTvShows(): LiveData<List<TvShowEntity>>
 
+    fun getMovieDetail(movieId: Int): LiveData<MovieEntity>
+
+    fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity>
 }

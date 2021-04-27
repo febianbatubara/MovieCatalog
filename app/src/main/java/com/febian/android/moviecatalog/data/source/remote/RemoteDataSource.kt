@@ -38,6 +38,26 @@ class RemoteDataSource {
         }
     }
 
+    suspend fun getMovieDetail(movieId: Int, callback: LoadMovieDetailCallback) {
+        EspressoIdlingResource.increment()
+        RetrofitService.apiInterface.getMovieDetail(movieId).await().let { movie ->
+            callback.onMovieDetailReceived(
+                movie
+            )
+            EspressoIdlingResource.decrement()
+        }
+    }
+
+    suspend fun getTvShowDetail(tvShowId: Int, callback: LoadTvShowDetailCallback) {
+        EspressoIdlingResource.increment()
+        RetrofitService.apiInterface.getTvShowDetail(tvShowId).await().let { tvShow ->
+            callback.onTvShowDetailReceived(
+                tvShow
+            )
+            EspressoIdlingResource.decrement()
+        }
+    }
+
     interface LoadMoviesCallback {
         fun onAllMoviesReceived(movieResponses: List<MovieEntity>)
     }
@@ -46,7 +66,11 @@ class RemoteDataSource {
         fun onAllTvShowsReceived(tvShowsResponses: List<TvShowEntity>)
     }
 
-//    interface LoadTvShowsCallback {
-//        fun onAllTvShowsReceived(tvShowsResponses: List<TvShowResponse>)
-//    }
+    interface LoadMovieDetailCallback {
+        fun onMovieDetailReceived(movieDetailResponse: MovieEntity)
+    }
+
+    interface LoadTvShowDetailCallback {
+        fun onTvShowDetailReceived(tvShowDetailResponse: TvShowEntity)
+    }
 }

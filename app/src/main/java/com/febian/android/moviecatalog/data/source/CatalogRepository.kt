@@ -39,7 +39,7 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                                 rating,
                                 posterPath,
                                 posterBgPath,
-                                false
+                                favorited
                             )
                             movieList.add(movie)
                         }
@@ -68,7 +68,7 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
                                 rating,
                                 posterPath,
                                 posterBgPath,
-                                false
+                                favorited
                             )
                             tvShowList.add(tvShow)
                         }
@@ -78,5 +78,59 @@ class CatalogRepository private constructor(private val remoteDataSource: Remote
             })
         }
         return tvShowResults
+    }
+
+    override fun getMovieDetail(movieId: Int): LiveData<MovieEntity> {
+        val movieResult = MutableLiveData<MovieEntity>()
+        CoroutineScope(IO).launch {
+            remoteDataSource.getMovieDetail(
+                movieId,
+                object : RemoteDataSource.LoadMovieDetailCallback {
+                    override fun onMovieDetailReceived(movieDetailResponse: MovieEntity) {
+                        with(movieDetailResponse) {
+                            val movie = MovieEntity(
+                                movieId,
+                                title,
+                                description,
+                                releaseDate,
+                                genreIds,
+                                rating,
+                                posterPath,
+                                posterBgPath,
+                                favorited
+                            )
+                            movieResult.postValue(movie)
+                        }
+                    }
+                })
+        }
+        return movieResult
+    }
+
+    override fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity> {
+        val tvShowResult = MutableLiveData<TvShowEntity>()
+        CoroutineScope(IO).launch {
+            remoteDataSource.getTvShowDetail(
+                tvShowId,
+                object : RemoteDataSource.LoadTvShowDetailCallback {
+                    override fun onTvShowDetailReceived(tvShowDetailResponse: TvShowEntity) {
+                        with(tvShowDetailResponse) {
+                            val tvShow = TvShowEntity(
+                                tvShowId,
+                                title,
+                                description,
+                                releaseDate,
+                                genreIds,
+                                rating,
+                                posterPath,
+                                posterBgPath,
+                                favorited
+                            )
+                            tvShowResult.postValue(tvShow)
+                        }
+                    }
+                })
+        }
+        return tvShowResult
     }
 }

@@ -1,6 +1,5 @@
 package com.febian.android.moviecatalog.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.febian.android.moviecatalog.data.source.CatalogRepository
@@ -39,5 +38,4 @@ class ViewModelFactory private constructor(private val mCatalogRepository: Catal
         }
 
     }
-
 }
