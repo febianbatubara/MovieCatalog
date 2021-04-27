@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.TvShowEntity
-import com.febian.android.moviecatalog.databinding.ActivityMovieDetailBinding
+import com.febian.android.moviecatalog.databinding.ActivityDetailBinding
 import com.febian.android.moviecatalog.utils.Constant
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
@@ -22,19 +23,20 @@ class TvShowDetailActivity : AppCompatActivity() {
         const val EXTRA_TV_SHOW = "extra_tv_show"
     }
 
-    private lateinit var detailBinding: ActivityMovieDetailBinding
+    private lateinit var tvShowDetailBinding: ActivityDetailBinding
     private lateinit var viewModel: TvShowDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailBinding = ActivityMovieDetailBinding.inflate(layoutInflater)
-        setContentView(detailBinding.root)
+        tvShowDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(tvShowDetailBinding.root)
 
         val factory = ViewModelFactory.getInstance()
         viewModel = ViewModelProvider(
             this,
             factory
         )[TvShowDetailViewModel::class.java]
+        showLoading(true)
 
         val extras = intent.extras
         if (extras != null) {
@@ -43,14 +45,14 @@ class TvShowDetailActivity : AppCompatActivity() {
             viewModel.getTvShow().observe(this, tvShowDetailObserver)
         }
 
-        detailBinding.btnBack.setOnClickListener { this@TvShowDetailActivity.finish() }
+        tvShowDetailBinding.btnBack.setOnClickListener { this@TvShowDetailActivity.finish() }
     }
 
     private val tvShowDetailObserver: Observer<TvShowEntity> =
         Observer { tvShow ->
-//            showLoading(false)
+            showLoading(false)
             showDetail(tvShow)
-            detailBinding.btnShare.setOnClickListener { shareData(tvShow) }
+            tvShowDetailBinding.btnShare.setOnClickListener { shareData(tvShow) }
         }
 
 
@@ -73,7 +75,7 @@ class TvShowDetailActivity : AppCompatActivity() {
     }
 
     private fun showDetail(tvShow: TvShowEntity) {
-        with(detailBinding) {
+        with(tvShowDetailBinding) {
             tvTitle.text = tvShow.title
             tvReleaseDate.text = getString(R.string.release_date, tvShow.releaseDate)
             val genreList = ArrayList<String>()
@@ -97,6 +99,24 @@ class TvShowDetailActivity : AppCompatActivity() {
                 .load(Constant.POSTER_BG_PATH + tvShow.posterBgPath)
                 .placeholder(ColorDrawable(Color.LTGRAY))
                 .into(ivPosterBg)
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        with(tvShowDetailBinding) {
+            if (state) {
+                ivPoster.visibility = View.GONE
+                ivPosterBg.visibility = View.GONE
+                tvReleaseDate.visibility = View.GONE
+                tvOverviewTitle.visibility = View.GONE
+                detailShimmerContainer.visibility = View.VISIBLE
+            } else {
+                ivPoster.visibility = View.VISIBLE
+                ivPosterBg.visibility = View.VISIBLE
+                tvReleaseDate.visibility = View.VISIBLE
+                tvOverviewTitle.visibility = View.VISIBLE
+                detailShimmerContainer.visibility = View.GONE
+            }
         }
     }
 }

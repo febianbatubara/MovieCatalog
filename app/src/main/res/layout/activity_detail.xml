@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
@@ -88,8 +89,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:maxLines="2"
-            android:text="@string/genre"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="@string/genre" />
 
         <TextView
             android:id="@+id/tv_release_date"
@@ -99,7 +100,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/release_date"
-            android:textSize="16sp" />
+            tools:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_overview_title"
@@ -121,5 +122,23 @@
             android:layout_marginEnd="16dp"
             android:textSize="16sp"
             tools:text="@string/overview" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/detail_shimmer_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationZ="90dp"
+            android:visibility="gone"
+            shimmer:shimmer_duration="1300">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/placeholder_activity_detail" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
     </RelativeLayout>
 </ScrollView>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.databinding.ActivityMovieDetailBinding
+import com.febian.android.moviecatalog.databinding.ActivityDetailBinding
 import com.febian.android.moviecatalog.utils.Constant
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
@@ -22,12 +23,12 @@ class MovieDetailActivity : AppCompatActivity() {
         const val EXTRA_MOVIE = "extra_movie"
     }
 
-    private lateinit var movieDetailBinding: ActivityMovieDetailBinding
+    private lateinit var movieDetailBinding: ActivityDetailBinding
     private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieDetailBinding = ActivityMovieDetailBinding.inflate(layoutInflater)
+        movieDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(movieDetailBinding.root)
 
         val factory = ViewModelFactory.getInstance()
@@ -35,6 +36,7 @@ class MovieDetailActivity : AppCompatActivity() {
             this,
             factory
         )[MovieDetailViewModel::class.java]
+        showLoading(true)
 
         val extras = intent.extras
         if (extras != null) {
@@ -48,7 +50,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private val movieDetailObserver: Observer<MovieEntity> =
         Observer { movie ->
-//            showLoading(false)
+            showLoading(false)
             showDetail(movie)
             movieDetailBinding.btnShare.setOnClickListener { shareData(movie) }
         }
@@ -97,6 +99,24 @@ class MovieDetailActivity : AppCompatActivity() {
                 .load(Constant.POSTER_BG_PATH + movie.posterBgPath)
                 .placeholder(ColorDrawable(Color.LTGRAY))
                 .into(ivPosterBg)
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        with(movieDetailBinding) {
+            if (state) {
+                ivPoster.visibility = View.GONE
+                ivPosterBg.visibility = View.GONE
+                tvReleaseDate.visibility = View.GONE
+                tvOverviewTitle.visibility = View.GONE
+                detailShimmerContainer.visibility = View.VISIBLE
+            } else {
+                ivPoster.visibility = View.VISIBLE
+                ivPosterBg.visibility = View.VISIBLE
+                tvReleaseDate.visibility = View.VISIBLE
+                tvOverviewTitle.visibility = View.VISIBLE
+                detailShimmerContainer.visibility = View.GONE
+            }
         }
     }
 }

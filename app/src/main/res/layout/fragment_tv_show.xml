@@ -45,9 +45,7 @@
             <include layout="@layout/placeholder_item_content" />
 
             <include layout="@layout/placeholder_item_content" />
-
         </LinearLayout>
-
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
