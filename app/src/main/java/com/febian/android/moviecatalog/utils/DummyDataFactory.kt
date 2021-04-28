@@ -10,15 +10,15 @@ object DummyDataFactory {
         val movies = ArrayList<MovieEntity>()
         movies.add(
             MovieEntity(
-                1,
-                "Godzilla vs. Kong",
-                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
-                "03/24/2021",
-                listOf(28, 878),
+                460465,
+                "Mortal Kombat",
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                "2021-04-07",
+                listOf(14, 28, 12, 878, 53),
                 listOf(),
-                8.3f,
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-                "https://image.tmdb.org/t/p/w780/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg",
+                8f,
+                "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+                "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
                 false
             )
         )
@@ -157,15 +157,15 @@ object DummyDataFactory {
         val tvShows = ArrayList<TvShowEntity>()
         tvShows.add(
             TvShowEntity(
-                11,
+                88396,
                 "The Falcon and the Winter Soldier",
                 "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
-                "03/19/2021",
-                listOf(1, 2),
+                "2021-03-19",
+                listOf(10765, 10759, 18, 10768),
                 listOf(),
-                7.8f,
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
-                "https://image.tmdb.org/t/p/w780/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
+                7.9f,
+                "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
                 false
             )
         )
