@@ -61,16 +61,11 @@ class TvShowDetailActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                """
-                    Check out this awesome tv show.
-                    
-                    Title: ${tvShow.title}
-                    Release date: ${tvShow.releaseDate}
-                """.trimIndent()
+                getString(R.string.share_tv_show_message, tvShow.title, tvShow.releaseDate)
             )
             type = "text/plain"
         }
-        startActivity(Intent.createChooser(shareIntent, "Share tv show information to.."))
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_tv_show_title)))
     }
 
     private fun showDetail(tvShow: TvShowEntity) {

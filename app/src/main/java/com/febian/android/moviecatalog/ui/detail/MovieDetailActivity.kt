@@ -60,16 +60,11 @@ class MovieDetailActivity : AppCompatActivity() {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                """
-                    Check out this awesome movie.
-                    
-                    Title: ${movie.title}
-                    Release date: ${movie.releaseDate}
-                """.trimIndent()
+                getString(R.string.share_movie_message, movie.title, movie.releaseDate)
             )
             type = "text/plain"
         }
-        startActivity(Intent.createChooser(shareIntent, "Share movie information to.."))
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_movie_title)))
     }
 
     private fun showDetail(movie: MovieEntity) {
