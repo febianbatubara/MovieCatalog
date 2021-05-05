@@ -64,7 +64,6 @@ class MovieDetailActivity : AppCompatActivity() {
                     Check out this awesome movie.
                     
                     Title: ${movie.title}
-                    Rating: "${movie.rating}/10"
                     Release date: ${movie.releaseDate}
                 """.trimIndent()
             )

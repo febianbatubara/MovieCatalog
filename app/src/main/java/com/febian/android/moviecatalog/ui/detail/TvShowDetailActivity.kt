@@ -65,7 +65,6 @@ class TvShowDetailActivity : AppCompatActivity() {
                     Check out this awesome tv show.
                     
                     Title: ${tvShow.title}
-                    Rating: ${tvShow.rating}/10
                     Release date: ${tvShow.releaseDate}
                 """.trimIndent()
             )

@@ -2,7 +2,9 @@ package com.febian.android.moviecatalog.ui.home
 
 import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -14,6 +16,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.utils.DummyDataFactory
+import com.febian.android.moviecatalog.utils.EspressoIdlingResource
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.Matcher
@@ -32,11 +35,14 @@ class HomeActivityTest {
 
     @Before
     fun setUp() {
+        ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
         Intents.init()
     }
 
     @After
     fun release() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
         Intents.release()
     }
 
@@ -61,11 +67,9 @@ class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
         onView(withId(R.id.tv_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyMovie[0].genre)))
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release_date)).check(matches(withText("Release Date: ${dummyMovie[0].releaseDate}")))
         onView(withId(R.id.tv_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_rating)).check(matches(withText("${dummyMovie[0].rating}/10")))
     }
 
     private fun chooser(matcher: Matcher<Intent?>?): Matcher<Intent?>? {
@@ -92,8 +96,6 @@ class HomeActivityTest {
                             Check out this awesome movie.
                     
                             Title: ${dummyMovie[0].title}
-                            Genre: ${dummyMovie[0].genre}
-                            Rating: "${dummyMovie[0].rating}/10"
                             Release date: ${dummyMovie[0].releaseDate}
                      """.trimIndent()
                     )
@@ -125,11 +127,9 @@ class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[0].title)))
         onView(withId(R.id.tv_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyTvShow[0].genre)))
         onView(withId(R.id.tv_release_date)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_release_date)).check(matches(withText("Release Date: ${dummyTvShow[0].releaseDate}")))
         onView(withId(R.id.tv_rating)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_rating)).check(matches(withText("${dummyTvShow[0].rating}/10")))
     }
 
     @Test
@@ -153,8 +153,6 @@ class HomeActivityTest {
                             Check out this awesome tv show.
                     
                             Title: ${dummyTvShow[0].title}
-                            Genre: ${dummyTvShow[0].genre}
-                            Rating: "${dummyTvShow[0].rating}/10"
                             Release date: ${dummyTvShow[0].releaseDate}
                      """.trimIndent()
                     )
