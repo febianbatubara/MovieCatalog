@@ -1,25 +1,17 @@
 package com.febian.android.moviecatalog.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.utils.DummyDataFactory
+import com.febian.android.moviecatalog.data.source.CatalogRepository
 
-class MovieDetailViewModel : ViewModel() {
+class MovieDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
-    private lateinit var movieId: String
+    private var movieId: Int = 0
 
-    fun setSelectedMovie(movieId: String) {
+    fun setSelectedMovie(movieId: Int) {
         this.movieId = movieId
     }
 
-    fun getMovie(): MovieEntity {
-        lateinit var movie: MovieEntity
-        val moviesEntities = DummyDataFactory.generateDummyMovies()
-        for (movieEntity in moviesEntities) {
-            if (movieEntity.movieId == movieId) {
-                movie = movieEntity
-            }
-        }
-        return movie
-    }
+    fun getMovie(): LiveData<MovieEntity> = catalogRepository.getMovieDetail(movieId)
 }

@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.febian.android.moviecatalog.data.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
+import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
 
     private lateinit var movieBinding: FragmentMovieBinding
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,25 +28,30 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showLoading(true)
-
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[MovieViewModel::class.java]
 
-            val movies = viewModel.getMovies()
+            showLoading(true)
+            viewModel.getMovies().observe(viewLifecycleOwner, movieObserver)
+            setUpRecyclerView()
+        }
+    }
 
-            val movieAdapter = MovieAdapter()
-            movieAdapter.setMovies(movies)
-
-            with(movieBinding.rvMovies) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = movieAdapter
-            }
+    private val movieObserver: Observer<List<MovieEntity>> =
+        Observer { movies ->
             showLoading(false)
+            movies?.let { movieAdapter.setMovies(it) }
+        }
+
+    private fun setUpRecyclerView() {
+        with(movieBinding.rvMovies) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = movieAdapter
         }
     }
 
@@ -55,5 +64,4 @@ class MovieFragment : Fragment() {
             movieBinding.rvMoviesShimmerContainer.visibility = View.GONE
         }
     }
-
 }

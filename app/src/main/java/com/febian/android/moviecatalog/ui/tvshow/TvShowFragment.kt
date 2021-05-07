@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
+import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
 class TvShowFragment : Fragment() {
 
     private lateinit var tvShowBinding: FragmentTvShowBinding
+    private val tvShowAdapter by lazy { TvShowAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,25 +27,31 @@ class TvShowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading(true)
 
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[TvShowViewModel::class.java]
 
-            val tvShows = viewModel.getTvShows()
+            showLoading(true)
+            viewModel.getTvShows().observe(viewLifecycleOwner, tvShowsObserver)
+            setUpRecyclerView()
+        }
+    }
 
-            val tvShowAdapter = TvShowAdapter()
-            tvShowAdapter.setTvShows(tvShows)
-
-            with(tvShowBinding.rvTvShows) {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = tvShowAdapter
-            }
+    private val tvShowsObserver: Observer<List<TvShowEntity>> =
+        Observer { tvShows ->
+            tvShows?.let { tvShowAdapter.setTvShows(it) }
             showLoading(false)
+        }
+
+    private fun setUpRecyclerView() {
+        with(tvShowBinding.rvTvShows) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = tvShowAdapter
         }
     }
 
@@ -54,5 +64,4 @@ class TvShowFragment : Fragment() {
             tvShowBinding.rvTvShowsShimmerContainer.visibility = View.GONE
         }
     }
-
 }

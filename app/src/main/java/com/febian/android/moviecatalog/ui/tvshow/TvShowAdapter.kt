@@ -10,6 +10,8 @@ import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailActivity
+import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.utils.GenreConverter
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
@@ -40,10 +42,10 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
             with(binding) {
                 tvItemTitle.text = tvShow.title
                 tvItemDate.text = tvShow.releaseDate
-                tvRating.text = tvShow.rating
-                tvItemGenre.text = tvShow.genre
+                tvRating.text = tvShow.rating.toString()
+                tvItemGenre.text = tvShow.genreIds?.let { GenreConverter.getGenres(it) }
                 Glide.with(itemView.context)
-                    .load(tvShow.posterPath)
+                    .load(Constant.POSTER_PATH + tvShow.posterPath)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

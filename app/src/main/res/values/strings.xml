@@ -9,4 +9,14 @@
     <string name="overview">Overview</string>
     <string name="back_button">Back Button</string>
     <string name="share_button">Share Button</string>
+    <string name="share_movie_title">Share movie information to..</string>
+    <string name="share_tv_show_title">Share tv show information to..</string>
+    <string name="share_movie_message">Check out this awesome movie.\n
+        Title: %1$s\n
+        Release date: %2$s
+    </string>
+    <string name="share_tv_show_message">Check out this awesome tv show.\n
+        Title: %1$s\n
+        Release date: %2$s
+    </string>
 </resources>
