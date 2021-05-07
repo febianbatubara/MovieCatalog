@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.febian.android.moviecatalog.data.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 

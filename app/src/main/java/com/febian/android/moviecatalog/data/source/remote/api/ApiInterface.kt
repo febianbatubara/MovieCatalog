@@ -1,8 +1,8 @@
-package com.febian.android.moviecatalog.api
+package com.febian.android.moviecatalog.data.source.remote.api
 
 import com.febian.android.moviecatalog.BuildConfig
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.response.Response
 import com.febian.android.moviecatalog.utils.Constant
 import retrofit2.Call

@@ -1,8 +1,8 @@
-package com.febian.android.moviecatalog.data.source
+package com.febian.android.moviecatalog.data
 
 import androidx.lifecycle.LiveData
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 
 interface CatalogDataSource {
 

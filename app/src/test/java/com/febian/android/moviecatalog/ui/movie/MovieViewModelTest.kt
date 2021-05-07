@@ -3,8 +3,8 @@ package com.febian.android.moviecatalog.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.source.CatalogRepository
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.utils.DummyDataFactory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

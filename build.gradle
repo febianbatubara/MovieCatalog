@@ -48,4 +48,7 @@ ext {
     retrofitVersion = '2.9.0'
     converterGsonVersion = '2.9.0'
     loggingInterceptorVersion = '5.0.0-alpha.2'
+
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.3.0'
 }

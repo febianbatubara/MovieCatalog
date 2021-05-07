@@ -2,7 +2,8 @@ package com.febian.android.moviecatalog.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.febian.android.moviecatalog.data.source.CatalogDataSource
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

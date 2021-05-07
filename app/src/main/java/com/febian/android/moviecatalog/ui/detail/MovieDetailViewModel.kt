@@ -2,8 +2,8 @@ package com.febian.android.moviecatalog.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.source.CatalogRepository
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.CatalogRepository
 
 class MovieDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 

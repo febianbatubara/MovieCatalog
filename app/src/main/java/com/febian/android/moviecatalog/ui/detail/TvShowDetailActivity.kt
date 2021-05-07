@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ActivityDetailBinding
 import com.febian.android.moviecatalog.utils.Constant
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory

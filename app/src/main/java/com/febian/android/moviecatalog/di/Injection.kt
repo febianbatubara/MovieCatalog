@@ -1,6 +1,6 @@
 package com.febian.android.moviecatalog.di
 
-import com.febian.android.moviecatalog.data.source.CatalogRepository
+import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
 
 object Injection {

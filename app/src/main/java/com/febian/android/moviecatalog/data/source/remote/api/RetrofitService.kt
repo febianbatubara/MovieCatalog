@@ -1,4 +1,4 @@
-package com.febian.android.moviecatalog.api
+package com.febian.android.moviecatalog.data.source.remote.api
 
 import com.febian.android.moviecatalog.BuildConfig
 import com.febian.android.moviecatalog.utils.Constant

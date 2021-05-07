@@ -1,8 +1,8 @@
 package com.febian.android.moviecatalog.data.source.remote
 
-import com.febian.android.moviecatalog.api.RetrofitService
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.data.source.remote.api.RetrofitService
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.utils.EspressoIdlingResource
 import retrofit2.await
 

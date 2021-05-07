@@ -2,7 +2,7 @@ package com.febian.android.moviecatalog.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.febian.android.moviecatalog.data.source.CatalogRepository
+import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.di.Injection
 import com.febian.android.moviecatalog.ui.detail.MovieDetailViewModel
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailViewModel

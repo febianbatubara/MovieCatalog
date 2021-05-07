@@ -1,4 +1,4 @@
-package com.febian.android.moviecatalog.data
+package com.febian.android.moviecatalog.data.source.local.entity
 
 import com.google.gson.annotations.SerializedName
 

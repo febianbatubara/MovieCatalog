@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.febian.android.moviecatalog.R
-import com.febian.android.moviecatalog.data.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
 import com.febian.android.moviecatalog.ui.detail.MovieDetailActivity
 import com.febian.android.moviecatalog.utils.Constant

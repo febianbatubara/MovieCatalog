@@ -1,19 +1,23 @@
-package com.febian.android.moviecatalog.data
+package com.febian.android.moviecatalog.data.source.local.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class TvShowEntity(
+@Entity(tableName = "movie_entities")
+data class MovieEntity(
 
+    @PrimaryKey(autoGenerate = false)
     @field:SerializedName("id")
-    var tvShowId: Int,
+    var movieId: Int,
 
-    @field:SerializedName("name")
+    @field:SerializedName("title")
     var title: String,
 
     @field:SerializedName("overview")
     var description: String,
 
-    @field:SerializedName("first_air_date")
+    @field:SerializedName("release_date")
     var releaseDate: String,
 
     @field:SerializedName("genre_ids")
@@ -31,5 +35,5 @@ data class TvShowEntity(
     @field:SerializedName("backdrop_path")
     var posterBgPath: String,
 
-    var favorited: Boolean = false
+    var favorited: Int = 0
 )

@@ -1,7 +1,7 @@
 package com.febian.android.moviecatalog.utils
 
-import com.febian.android.moviecatalog.data.MovieEntity
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 
 object DummyDataFactory {
 
@@ -19,7 +19,7 @@ object DummyDataFactory {
                 8f,
                 "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
                 "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -33,7 +33,7 @@ object DummyDataFactory {
                 8.5f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
                 "https://image.tmdb.org/t/p/w780/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -47,7 +47,7 @@ object DummyDataFactory {
                 7.4f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9kg73Mg8WJKlB9Y2SAJzeDKAnuB.jpg",
                 "https://image.tmdb.org/t/p/w780/5NxjLfs7Bi07bfZCRl9CCnUw7AA.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -61,7 +61,7 @@ object DummyDataFactory {
                 8.3f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg",
                 "https://image.tmdb.org/t/p/w780/7prYzufdIOy1KCTZKVWpjBFqqNr.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -75,7 +75,7 @@ object DummyDataFactory {
                 7.3f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6KErczPBROQty7QoIsaa6wJYXZi.jpg",
                 "https://image.tmdb.org/t/p/w780/fev8UFNFFYsD5q7AcYS8LyTzqwl.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -89,7 +89,7 @@ object DummyDataFactory {
                 7.2f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4ZSzEDVdxWVMVO4oZDvoodQOEfr.jpg",
                 "https://image.tmdb.org/t/p/w780/9Is9OrQUnKczCfsLSbsbx8YSmES.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -103,7 +103,7 @@ object DummyDataFactory {
                 6.4f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dWSnsAGTfc8U27bWsy2RfwZs0Bs.jpg",
                 "https://image.tmdb.org/t/p/w780/6TPZSJ06OEXeelx1U1VIAt0j9Ry.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -117,7 +117,7 @@ object DummyDataFactory {
                 7.2f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bmemsraCG1kIthY74NjDnnLRT2Q.jpg",
                 "https://image.tmdb.org/t/p/w780/drulhSX7P5TQlEMQZ3JoXKSDEfz.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -131,7 +131,7 @@ object DummyDataFactory {
                 7.5f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tbVZ3Sq88dZaCANlUcewQuHQOaE.jpg",
                 "https://image.tmdb.org/t/p/w780/cjaOSjsjV6cl3uXdJqimktT880L.jpg",
-                false
+                0
             )
         )
         movies.add(
@@ -145,7 +145,7 @@ object DummyDataFactory {
                 8.3f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hm58Jw4Lw8OIeECIq5qyPYhAeRJ.jpg",
                 "https://image.tmdb.org/t/p/w780/kf456ZqeC45XTvo6W9pW5clYKfQ.jpg",
-                false
+                0
             )
         )
 
@@ -166,7 +166,7 @@ object DummyDataFactory {
                 7.9f,
                 "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
                 "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -180,7 +180,7 @@ object DummyDataFactory {
                 8.6f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6tfT03sGp9k4c0J3dypjrI8TSAI.jpg",
                 "https://image.tmdb.org/t/p/w780/mZjZgY6ObiKtVuKVDrnS9VnuNlE.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -194,7 +194,7 @@ object DummyDataFactory {
                 7.7f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
                 "https://image.tmdb.org/t/p/w780/z59kJfcElR9eHO9rJbWp4qWMuee.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -208,7 +208,7 @@ object DummyDataFactory {
                 8.6f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
                 "https://image.tmdb.org/t/p/w780/qZtAf4Z1lazGQoYVXiHOrvLr5lI.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -222,7 +222,7 @@ object DummyDataFactory {
                 8.2f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
                 "https://image.tmdb.org/t/p/w780/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -236,7 +236,7 @@ object DummyDataFactory {
                 8.9f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
                 "https://image.tmdb.org/t/p/w780/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -250,7 +250,7 @@ object DummyDataFactory {
                 7.8f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/o7uk5ChRt3quPIv8PcvPfzyXdMw.jpg",
                 "https://image.tmdb.org/t/p/w780/pLG4ihU1d2XkQbASQDjsFu9U7d9.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -264,7 +264,7 @@ object DummyDataFactory {
                 8.5f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
                 "https://image.tmdb.org/t/p/w780/ta5oblpMlEcIPIS2YGcq9XEkWK2.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -278,7 +278,7 @@ object DummyDataFactory {
                 8.1f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rqeYMLryjcawh2JeRpCVUDXYM5b.jpg",
                 "https://image.tmdb.org/t/p/w780/uro2Khv7JxlzXtLb8tCIbRhkb9E.jpg",
-                false
+                0
             )
         )
         tvShows.add(
@@ -292,7 +292,7 @@ object DummyDataFactory {
                 8.3f,
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6SJppowm7cdQgLkvoTlnTUSbjr9.jpg",
                 "https://image.tmdb.org/t/p/w780/gmbsR4SvYhhj4SvLAlTKxIkFxp9.jpg",
-                false
+                0
             )
         )
 
