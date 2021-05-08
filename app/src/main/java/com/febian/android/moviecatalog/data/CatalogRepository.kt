@@ -6,6 +6,8 @@ import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.ApiResponse
 import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
+import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
+import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
 import com.febian.android.moviecatalog.utils.AppExecutors
 import com.febian.android.moviecatalog.vo.Resource
 
@@ -35,17 +37,17 @@ class CatalogRepository private constructor(
     }
 
     override fun getPopularMovies(): LiveData<Resource<List<MovieEntity>>> {
-        return object : NetworkBoundResource<List<MovieEntity>, List<MovieEntity>>(appExecutors) {
+        return object : NetworkBoundResource<List<MovieEntity>, List<MovieResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<MovieEntity>> =
                 localDataSource.getAllMovies()
 
             override fun shouldFetch(data: List<MovieEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<MovieEntity>>> =
+            public override fun createCall(): LiveData<ApiResponse<List<MovieResponse>>> =
                 remoteDataSource.getPopularMovies()
 
-            public override fun saveCallResult(data: List<MovieEntity>) {
+            public override fun saveCallResult(data: List<MovieResponse>) {
                 val movieList = ArrayList<MovieEntity>()
                 data.forEach { responseData ->
                     with(responseData) {
@@ -70,17 +72,18 @@ class CatalogRepository private constructor(
     }
 
     override fun getPopularTvShows(): LiveData<Resource<List<TvShowEntity>>> {
-        return object : NetworkBoundResource<List<TvShowEntity>, List<TvShowEntity>>(appExecutors) {
+        return object :
+            NetworkBoundResource<List<TvShowEntity>, List<TvShowResponse>>(appExecutors) {
             public override fun loadFromDB(): LiveData<List<TvShowEntity>> =
                 localDataSource.getAllTvShows()
 
             override fun shouldFetch(data: List<TvShowEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<TvShowEntity>>> =
+            public override fun createCall(): LiveData<ApiResponse<List<TvShowResponse>>> =
                 remoteDataSource.getPopularTvShows()
 
-            public override fun saveCallResult(data: List<TvShowEntity>) {
+            public override fun saveCallResult(data: List<TvShowResponse>) {
                 val tvShowList = ArrayList<TvShowEntity>()
                 data.forEach { responseData ->
                     with(responseData) {

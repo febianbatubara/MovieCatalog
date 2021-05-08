@@ -2,9 +2,9 @@ package com.febian.android.moviecatalog.data.source.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
-import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.api.RetrofitService
+import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
+import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
 import com.febian.android.moviecatalog.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -24,9 +24,9 @@ class RemoteDataSource {
             }
     }
 
-    fun getPopularMovies(): LiveData<ApiResponse<List<MovieEntity>>> {
+    fun getPopularMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
         EspressoIdlingResource.increment()
-        val movieResults = MutableLiveData<ApiResponse<List<MovieEntity>>>()
+        val movieResults = MutableLiveData<ApiResponse<List<MovieResponse>>>()
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getPopularMovies().await().results.let { movieList ->
@@ -40,9 +40,9 @@ class RemoteDataSource {
         return movieResults
     }
 
-    fun getPopularTvShows(): LiveData<ApiResponse<List<TvShowEntity>>> {
+    fun getPopularTvShows(): LiveData<ApiResponse<List<TvShowResponse>>> {
         EspressoIdlingResource.increment()
-        val tvShowResults = MutableLiveData<ApiResponse<List<TvShowEntity>>>()
+        val tvShowResults = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getPopularTvShows().await().results.let { tvShowList ->
@@ -56,9 +56,9 @@ class RemoteDataSource {
         return tvShowResults
     }
 
-    fun getMovieDetail(movieId: Int): LiveData<ApiResponse<MovieEntity>> {
+    fun getMovieDetail(movieId: Int): LiveData<ApiResponse<MovieResponse>> {
         EspressoIdlingResource.increment()
-        val movieResult = MutableLiveData<ApiResponse<MovieEntity>>()
+        val movieResult = MutableLiveData<ApiResponse<MovieResponse>>()
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getMovieDetail(movieId).await().let { movie ->
@@ -72,9 +72,9 @@ class RemoteDataSource {
         return movieResult
     }
 
-    fun getTvShowDetail(tvShowId: Int): LiveData<ApiResponse<TvShowEntity>> {
+    fun getTvShowDetail(tvShowId: Int): LiveData<ApiResponse<TvShowResponse>> {
         EspressoIdlingResource.increment()
-        val tvShowResult = MutableLiveData<ApiResponse<TvShowEntity>>()
+        val tvShowResult = MutableLiveData<ApiResponse<TvShowResponse>>()
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getTvShowDetail(tvShowId).await().let { tvShow ->

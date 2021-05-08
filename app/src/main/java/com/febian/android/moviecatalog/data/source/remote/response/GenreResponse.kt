@@ -1,8 +1,8 @@
-package com.febian.android.moviecatalog.data.source.local.entity
+package com.febian.android.moviecatalog.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class GenreEntity(
+data class GenreResponse(
 
     @field:SerializedName("id")
     var genreId: Int,
