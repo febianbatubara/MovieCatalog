@@ -31,7 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(movieDetailBinding.root)
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(
             this,
             factory

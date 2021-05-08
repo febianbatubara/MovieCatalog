@@ -11,6 +11,9 @@ interface CatalogDao {
     @Query("SELECT * FROM movie_entities")
     fun getMovies(): LiveData<List<MovieEntity>>
 
+    @Query("SELECT * FROM movie_entities WHERE movieId = :movieId")
+    fun getMovieDetail(movieId: Int): LiveData<MovieEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovies(movies: List<MovieEntity>)
 
@@ -23,6 +26,9 @@ interface CatalogDao {
     @Query("SELECT * FROM tv_show_entities")
     fun getTvShows(): LiveData<List<TvShowEntity>>
 
+    @Query("SELECT * FROM tv_show_entities WHERE tvShowId = :tvShowId")
+    fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity>
+
     @Query("SELECT * FROM tv_show_entities where favorited == 1")
     fun getFavoritedTvShows(): LiveData<List<TvShowEntity>>
 
@@ -31,5 +37,4 @@ interface CatalogDao {
 
     @Update
     fun updateTvShow(course: TvShowEntity)
-
 }

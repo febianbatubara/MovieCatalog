@@ -31,7 +31,7 @@ class TvShowDetailActivity : AppCompatActivity() {
         tvShowDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(tvShowDetailBinding.root)
 
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(
             this,
             factory
