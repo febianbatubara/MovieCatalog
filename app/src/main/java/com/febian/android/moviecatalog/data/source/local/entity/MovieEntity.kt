@@ -35,5 +35,5 @@ data class MovieEntity(
     @field:SerializedName("backdrop_path")
     var posterBgPath: String,
 
-    var favorited: Int = 0
+    var favorited: Boolean = false
 )
