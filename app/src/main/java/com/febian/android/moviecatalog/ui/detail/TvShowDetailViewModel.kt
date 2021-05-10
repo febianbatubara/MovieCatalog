@@ -1,17 +1,29 @@
 package com.febian.android.moviecatalog.ui.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.CatalogRepository
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 
 class TvShowDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
-    private var tvShowId: Int = 0
+    val tvShowId = MutableLiveData<Int>()
 
     fun setSelectedTvShow(tvShowId: Int) {
-        this.tvShowId = tvShowId
+        this.tvShowId.value = tvShowId
     }
 
-    fun getTvShow(): LiveData<TvShowEntity> = catalogRepository.getTvShowDetail(tvShowId)
+    var tvShow: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) {
+        catalogRepository.getTvShowDetail(it)
+    }
+
+    fun setFavoriteTvShow() {
+        val tvShowEntity = tvShow.value
+        if (tvShowEntity != null) {
+            val newState = !tvShowEntity.favorited
+            catalogRepository.setFavoriteTvShow(tvShowEntity, newState)
+        }
+    }
 }

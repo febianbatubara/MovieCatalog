@@ -30,7 +30,7 @@ class RemoteDataSource {
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getPopularMovies().await().results.let { movieList ->
-                    movieResults.value = ApiResponse.success(movieList)
+                    movieResults.postValue(ApiResponse.success(movieList))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -46,7 +46,7 @@ class RemoteDataSource {
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getPopularTvShows().await().results.let { tvShowList ->
-                    tvShowResults.value = ApiResponse.success(tvShowList)
+                    tvShowResults.postValue(ApiResponse.success(tvShowList))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -62,7 +62,7 @@ class RemoteDataSource {
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getMovieDetail(movieId).await().let { movie ->
-                    movieResult.value = ApiResponse.success(movie)
+                    movieResult.postValue(ApiResponse.success(movie))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -78,7 +78,7 @@ class RemoteDataSource {
         CoroutineScope(IO).launch {
             try {
                 RetrofitService.apiInterface.getTvShowDetail(tvShowId).await().let { tvShow ->
-                    tvShowResult.value = ApiResponse.success(tvShow)
+                    tvShowResult.postValue(ApiResponse.success(tvShow))
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

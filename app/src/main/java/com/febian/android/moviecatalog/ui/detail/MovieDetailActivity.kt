@@ -42,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
         if (extras != null) {
             val movieId = extras.getInt(EXTRA_MOVIE)
             viewModel.setSelectedMovie(movieId)
-            viewModel.getMovie().observe(this, movieDetailObserver)
+            viewModel.movie.observe(this, movieDetailObserver)
         }
 
         movieDetailBinding.btnBack.setOnClickListener { this@MovieDetailActivity.finish() }
@@ -71,12 +71,6 @@ class MovieDetailActivity : AppCompatActivity() {
         with(movieDetailBinding) {
             tvTitle.text = movie.title
             tvReleaseDate.text = getString(R.string.release_date, movie.releaseDate)
-
-            val genreList = ArrayList<String>()
-            movie.genres?.forEach {
-                genreList.add(it.name)
-            }
-            tvGenre.text = genreList.joinToString(", ")
             tvRating.text = getString(R.string.rating, movie.rating.toString())
             tvDescription.text = movie.description
 

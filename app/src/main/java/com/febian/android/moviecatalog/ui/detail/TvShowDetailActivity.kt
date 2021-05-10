@@ -42,7 +42,7 @@ class TvShowDetailActivity : AppCompatActivity() {
         if (extras != null) {
             val tvShowId = extras.getInt(EXTRA_TV_SHOW)
             viewModel.setSelectedTvShow(tvShowId)
-            viewModel.getTvShow().observe(this, tvShowDetailObserver)
+            viewModel.tvShow.observe(this, tvShowDetailObserver)
         }
 
         tvShowDetailBinding.btnBack.setOnClickListener { this@TvShowDetailActivity.finish() }
@@ -72,11 +72,6 @@ class TvShowDetailActivity : AppCompatActivity() {
         with(tvShowDetailBinding) {
             tvTitle.text = tvShow.title
             tvReleaseDate.text = getString(R.string.release_date, tvShow.releaseDate)
-            val genreList = ArrayList<String>()
-            tvShow.genres?.forEach {
-                genreList.add(it.name)
-            }
-            tvGenre.text = genreList.joinToString(", ")
             tvRating.text = getString(R.string.rating, tvShow.rating.toString())
             tvDescription.text = tvShow.description
 

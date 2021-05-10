@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
 
 class MovieFragment : Fragment() {
 
@@ -35,16 +38,27 @@ class MovieFragment : Fragment() {
                 factory
             )[MovieViewModel::class.java]
 
-            showLoading(true)
             viewModel.getMovies().observe(viewLifecycleOwner, movieObserver)
             setUpRecyclerView()
         }
     }
 
-    private val movieObserver: Observer<List<MovieEntity>> =
+    private val movieObserver: Observer<Resource<List<MovieEntity>>> =
         Observer { movies ->
-            showLoading(false)
-            movies?.let { movieAdapter.setMovies(it) }
+            if (movies != null) {
+                when (movies.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        movieAdapter.setMovies(movies.data)
+                        movieAdapter.notifyDataSetChanged()
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(context, "Error loading data", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
     private fun setUpRecyclerView() {

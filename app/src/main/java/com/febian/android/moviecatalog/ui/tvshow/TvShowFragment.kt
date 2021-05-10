@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
 
 class TvShowFragment : Fragment() {
 
@@ -35,16 +38,27 @@ class TvShowFragment : Fragment() {
                 factory
             )[TvShowViewModel::class.java]
 
-            showLoading(true)
             viewModel.getTvShows().observe(viewLifecycleOwner, tvShowsObserver)
             setUpRecyclerView()
         }
     }
 
-    private val tvShowsObserver: Observer<List<TvShowEntity>> =
+    private val tvShowsObserver: Observer<Resource<List<TvShowEntity>>> =
         Observer { tvShows ->
-            tvShows?.let { tvShowAdapter.setTvShows(it) }
-            showLoading(false)
+            if (tvShows != null) {
+                when (tvShows.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        tvShowAdapter.setTvShows(tvShows.data)
+                        tvShowAdapter.notifyDataSetChanged()
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(context, "Error loading data", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
     private fun setUpRecyclerView() {

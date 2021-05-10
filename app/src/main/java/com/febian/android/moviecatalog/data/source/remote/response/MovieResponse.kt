@@ -16,12 +16,6 @@ data class MovieResponse(
     @field:SerializedName("release_date")
     var releaseDate: String,
 
-    @field:SerializedName("genre_ids")
-    var genreIds: List<Int>? = listOf(),
-
-    @field:SerializedName("genres")
-    var genres: List<GenreResponse>? = listOf(),
-
     @field:SerializedName("vote_average")
     var rating: Float,
 
