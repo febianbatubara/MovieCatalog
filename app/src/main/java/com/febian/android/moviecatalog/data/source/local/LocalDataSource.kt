@@ -2,6 +2,7 @@ package com.febian.android.moviecatalog.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.local.room.CatalogDao
@@ -19,7 +20,8 @@ class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
 
     fun getMovieDetail(movieId: Int): LiveData<MovieEntity> = mCatalogDao.getMovieDetail(movieId)
 
-    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogDao.getFavoritedMovies()
+    fun getFavoritedMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity> =
+        mCatalogDao.getFavoritedMovies(query)
 
     fun insertMovies(movies: List<MovieEntity>) = mCatalogDao.insertMovies(movies)
 
@@ -35,7 +37,8 @@ class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
     fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity> =
         mCatalogDao.getTvShowDetail(tvShowId)
 
-    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity> = mCatalogDao.getFavoritedTvShows()
+    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity> =
+        mCatalogDao.getFavoritedTvShows()
 
     fun insertTvShows(tvShows: List<TvShowEntity>) = mCatalogDao.insertTvShows(tvShows)
 

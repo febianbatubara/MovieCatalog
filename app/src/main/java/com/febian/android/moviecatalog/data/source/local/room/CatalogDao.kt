@@ -3,6 +3,7 @@ package com.febian.android.moviecatalog.data.source.local.room
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 
@@ -12,8 +13,8 @@ interface CatalogDao {
     @Query("SELECT * FROM movie_entities")
     fun getMovies(): DataSource.Factory<Int, MovieEntity>
 
-    @Query("SELECT * FROM movie_entities where favorited == 1")
-    fun getFavoritedMovies(): DataSource.Factory<Int, MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getFavoritedMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movie_entities WHERE movieId = :movieId")
     fun getMovieDetail(movieId: Int): LiveData<MovieEntity>

@@ -26,4 +26,7 @@
         Release date: %2$s
     </string>
     <string name="empty">Empty</string>
+    <string name="menu_title_asc">Title Ascending</string>
+    <string name="menu_title_desc">Title Descending</string>
+    <string name="menu_best_rating">Best Rating</string>
 </resources>

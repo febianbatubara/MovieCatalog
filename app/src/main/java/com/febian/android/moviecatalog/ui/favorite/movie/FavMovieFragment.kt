@@ -1,5 +1,6 @@
 package com.febian.android.moviecatalog.ui.favorite.movie
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,16 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
+import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
 import com.febian.android.moviecatalog.ui.movie.MovieAdapter
+import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
-class FavMovieFragment : Fragment() {
+class FavMovieFragment : Fragment(), FavoriteActivity.DataSortListener {
 
     private lateinit var movieBinding: FragmentMovieBinding
     private val movieAdapter by lazy { MovieAdapter() }
+    private lateinit var viewModel: FavMovieViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +36,14 @@ class FavMovieFragment : Fragment() {
 
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
                 factory
             )[FavMovieViewModel::class.java]
 
             showLoading(true)
-            viewModel.getFavoriteMovies().observe(viewLifecycleOwner, movieObserver)
+            viewModel.getFavoriteMovies(SortUtils.TITLE_ASC)
+                .observe(viewLifecycleOwner, movieObserver)
             setUpRecyclerView()
         }
     }
@@ -76,5 +81,19 @@ class FavMovieFragment : Fragment() {
             movieBinding.ivEmptyItem.visibility = View.GONE
             movieBinding.tvEmptyItem.visibility = View.GONE
         }
+    }
+
+    override fun onDataSorted(sort: String) {
+        viewModel.getFavoriteMovies(sort).observe(viewLifecycleOwner, movieObserver)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as FavoriteActivity).registerDataSortListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as FavoriteActivity).unregisterDataSortListener(this)
     }
 }

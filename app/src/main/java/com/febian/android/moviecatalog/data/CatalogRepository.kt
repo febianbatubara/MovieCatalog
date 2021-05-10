@@ -11,6 +11,7 @@ import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
 import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
 import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
 import com.febian.android.moviecatalog.utils.AppExecutors
+import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.vo.Resource
 
 class CatalogRepository private constructor(
@@ -180,8 +181,10 @@ class CatalogRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getFavoritedMovies(): LiveData<PagedList<MovieEntity>> =
-        LivePagedListBuilder(localDataSource.getFavoritedMovies(), pagingConfig).build()
+    override fun getFavoritedMovies(sort: String): LiveData<PagedList<MovieEntity>> {
+        val query = SortUtils.getSortedQuery(sort)
+        return LivePagedListBuilder(localDataSource.getFavoritedMovies(query), pagingConfig).build()
+    }
 
     override fun getFavoritedTvShows(): LiveData<PagedList<TvShowEntity>> =
         LivePagedListBuilder(localDataSource.getFavoritedTvShows(), pagingConfig).build()
