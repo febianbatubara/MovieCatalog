@@ -1,9 +1,11 @@
 package com.febian.android.moviecatalog.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.febian.android.moviecatalog.databinding.ActivityHomeBinding
+import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -17,6 +19,14 @@ class HomeActivity : AppCompatActivity() {
         setContentView(activityHomeBinding.root)
 
         setupViewPager()
+        activityHomeBinding.btnFavoriteActivity.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    FavoriteActivity::class.java
+                )
+            )
+        }
     }
 
     private fun setWindowFlag() {
