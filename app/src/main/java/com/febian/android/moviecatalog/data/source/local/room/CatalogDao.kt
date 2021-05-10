@@ -21,7 +21,7 @@ interface CatalogDao {
     fun getFavoritedMovies(): LiveData<List<MovieEntity>>
 
     @Update
-    fun updateMovie(course: MovieEntity)
+    fun updateMovie(movie: MovieEntity)
 
     @Query("SELECT * FROM tv_show_entities")
     fun getTvShows(): LiveData<List<TvShowEntity>>
@@ -36,5 +36,5 @@ interface CatalogDao {
     fun insertTvShows(movies: List<TvShowEntity>)
 
     @Update
-    fun updateTvShow(course: TvShowEntity)
+    fun updateTvShow(tvShow: TvShowEntity)
 }

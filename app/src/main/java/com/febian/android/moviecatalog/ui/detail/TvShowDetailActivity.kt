@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +16,11 @@ import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ActivityDetailBinding
 import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.utils.NumberUtil
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
+import java.util.*
 
 class TvShowDetailActivity : AppCompatActivity() {
 
@@ -48,11 +53,28 @@ class TvShowDetailActivity : AppCompatActivity() {
         tvShowDetailBinding.btnBack.setOnClickListener { this@TvShowDetailActivity.finish() }
     }
 
-    private val tvShowDetailObserver: Observer<TvShowEntity> =
-        Observer { tvShow ->
-            showLoading(false)
-            showDetail(tvShow)
-            tvShowDetailBinding.btnShare.setOnClickListener { shareData(tvShow) }
+    private val tvShowDetailObserver: Observer<Resource<TvShowEntity>> =
+        Observer { tvShowResource ->
+            if (tvShowResource != null) {
+                when (tvShowResource.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        tvShowResource.data?.let { tvShow ->
+                            showDetail(tvShow)
+                            tvShowDetailBinding.btnShare.setOnClickListener { shareData(tvShow) }
+                        }
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.error_loading_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
 
@@ -72,7 +94,10 @@ class TvShowDetailActivity : AppCompatActivity() {
         with(tvShowDetailBinding) {
             tvTitle.text = tvShow.title
             tvReleaseDate.text = getString(R.string.release_date, tvShow.releaseDate)
+            tvTagLine.text = if (!tvShow.tagline.isNullOrBlank()) tvShow.tagline else "-"
             tvRating.text = getString(R.string.rating, tvShow.rating.toString())
+            tvVoteCount.text =
+                NumberUtil.formatNumber(tvShow.voteCount, this@TvShowDetailActivity)
             tvDescription.text = tvShow.description
 
             Glide.with(this@TvShowDetailActivity)

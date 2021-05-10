@@ -9,25 +9,31 @@ data class MovieEntity(
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "movieId")
-    var movieId: Int = 0,
+    var movieId: Int,
 
     @ColumnInfo(name = "title")
-    var title: String = "",
+    var title: String,
 
     @ColumnInfo(name = "description")
-    var description: String = "",
+    var description: String,
+
+    @ColumnInfo(name = "tagline")
+    var tagline: String?,
 
     @ColumnInfo(name = "releaseDate")
-    var releaseDate: String = "",
+    var releaseDate: String,
 
     @ColumnInfo(name = "rating")
-    var rating: Float = 0f,
+    var rating: Float,
+
+    @ColumnInfo(name = "voteCount")
+    var voteCount: Int,
 
     @ColumnInfo(name = "posterPath")
-    var posterPath: String = "",
+    var posterPath: String,
 
     @ColumnInfo(name = "posterBgPath")
-    var posterBgPath: String = "",
+    var posterBgPath: String,
 
     @ColumnInfo(name = "favorited")
     var favorited: Boolean = false

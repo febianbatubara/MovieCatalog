@@ -13,11 +13,17 @@ data class MovieResponse(
     @field:SerializedName("overview")
     var description: String,
 
+    @field:SerializedName("tagline")
+    var tagline: String,
+
     @field:SerializedName("release_date")
     var releaseDate: String,
 
     @field:SerializedName("vote_average")
     var rating: Float,
+
+    @field:SerializedName("vote_count")
+    var voteCount: Int,
 
     @field:SerializedName("poster_path")
     var posterPath: String,

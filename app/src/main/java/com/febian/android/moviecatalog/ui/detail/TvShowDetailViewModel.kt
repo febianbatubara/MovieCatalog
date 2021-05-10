@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
+import com.febian.android.moviecatalog.vo.Resource
 
 class TvShowDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
@@ -15,12 +16,12 @@ class TvShowDetailViewModel(private val catalogRepository: CatalogRepository) : 
         this.tvShowId.value = tvShowId
     }
 
-    var tvShow: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) {
+    var tvShow: LiveData<Resource<TvShowEntity>> = Transformations.switchMap(tvShowId) {
         catalogRepository.getTvShowDetail(it)
     }
 
     fun setFavoriteTvShow() {
-        val tvShowEntity = tvShow.value
+        val tvShowEntity = tvShow.value?.data
         if (tvShowEntity != null) {
             val newState = !tvShowEntity.favorited
             catalogRepository.setFavoriteTvShow(tvShowEntity, newState)

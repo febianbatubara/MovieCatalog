@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
@@ -55,7 +56,11 @@ class MovieFragment : Fragment() {
                     }
                     Status.ERROR -> {
                         showLoading(false)
-                        Toast.makeText(context, "Error loading data", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            getString(R.string.error_loading_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

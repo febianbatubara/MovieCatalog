@@ -11,6 +11,7 @@ import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.ItemsContentBinding
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailActivity
 import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.utils.NumberUtil
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
 
@@ -42,6 +43,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
                 tvItemTitle.text = tvShow.title
                 tvItemDate.text = tvShow.releaseDate
                 tvRating.text = tvShow.rating.toString()
+                tvVoteCount.text = NumberUtil.formatNumber(tvShow.voteCount, binding.root.context)
                 Glide.with(itemView.context)
                     .load(Constant.POSTER_PATH + tvShow.posterPath)
                     .apply(

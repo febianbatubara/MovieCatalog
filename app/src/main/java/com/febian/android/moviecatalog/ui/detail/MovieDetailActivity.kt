@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +16,11 @@ import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.ActivityDetailBinding
 import com.febian.android.moviecatalog.utils.Constant
+import com.febian.android.moviecatalog.utils.NumberUtil
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
+import java.util.*
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -48,11 +53,28 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailBinding.btnBack.setOnClickListener { this@MovieDetailActivity.finish() }
     }
 
-    private val movieDetailObserver: Observer<MovieEntity> =
-        Observer { movie ->
-            showLoading(false)
-            showDetail(movie)
-            movieDetailBinding.btnShare.setOnClickListener { shareData(movie) }
+    private val movieDetailObserver: Observer<Resource<MovieEntity>> =
+        Observer { movieResource ->
+            if (movieResource != null) {
+                when (movieResource.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        movieResource.data?.let { movie ->
+                            showDetail(movie)
+                            movieDetailBinding.btnShare.setOnClickListener { shareData(movie) }
+                        }
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.error_loading_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
     private fun shareData(movie: MovieEntity) {
@@ -71,7 +93,10 @@ class MovieDetailActivity : AppCompatActivity() {
         with(movieDetailBinding) {
             tvTitle.text = movie.title
             tvReleaseDate.text = getString(R.string.release_date, movie.releaseDate)
+            tvTagLine.text = if (!movie.tagline.isNullOrBlank()) movie.tagline else "-"
             tvRating.text = getString(R.string.rating, movie.rating.toString())
+            tvVoteCount.text =
+                NumberUtil.formatNumber(movie.voteCount, this@MovieDetailActivity)
             tvDescription.text = movie.description
 
             Glide.with(this@MovieDetailActivity)
