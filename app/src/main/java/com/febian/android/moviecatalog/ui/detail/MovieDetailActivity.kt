@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -20,6 +21,7 @@ import com.febian.android.moviecatalog.utils.NumberUtil
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 import com.febian.android.moviecatalog.vo.Resource
 import com.febian.android.moviecatalog.vo.Status
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -62,7 +64,11 @@ class MovieDetailActivity : AppCompatActivity() {
                         showLoading(false)
                         movieResource.data?.let { movie ->
                             showDetail(movie)
+
                             movieDetailBinding.btnShare.setOnClickListener { shareData(movie) }
+                            val state = movie.favorited
+                            setFavoriteButtonState(state)
+                            movieDetailBinding.btnFavorite.setOnClickListener { setFavorite(state) }
                         }
                     }
                     Status.ERROR -> {
@@ -76,18 +82,6 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-    private fun shareData(movie: MovieEntity) {
-        val shareIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT,
-                getString(R.string.share_movie_message, movie.title, movie.releaseDate)
-            )
-            type = "text/plain"
-        }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_movie_title)))
-    }
 
     private fun showDetail(movie: MovieEntity) {
         with(movieDetailBinding) {
@@ -115,6 +109,32 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setFavorite(state: Boolean) {
+        viewModel.setFavoriteMovie()
+
+        val textResource: String = if (state) {
+            getString(R.string.removed_from_favorite)
+        } else {
+            getString(R.string.added_to_favorite)
+        }
+        Snackbar.make(movieDetailBinding.activityDetail, textResource, Snackbar.LENGTH_LONG)
+            .setAction("Close") { }
+            .setActionTextColor(ContextCompat.getColor(this, R.color.gold))
+            .show()
+    }
+
+    private fun shareData(movie: MovieEntity) {
+        val shareIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.share_movie_message, movie.title, movie.releaseDate)
+            )
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_movie_title)))
+    }
+
     private fun showLoading(state: Boolean) {
         with(movieDetailBinding) {
             if (state) {
@@ -130,6 +150,14 @@ class MovieDetailActivity : AppCompatActivity() {
                 tvOverviewTitle.visibility = View.VISIBLE
                 detailShimmerContainer.visibility = View.GONE
             }
+        }
+    }
+
+    private fun setFavoriteButtonState(state: Boolean) {
+        if (state) {
+            movieDetailBinding.btnFavorite.setImageResource(R.drawable.ic_bookmarked_white)
+        } else {
+            movieDetailBinding.btnFavorite.setImageResource(R.drawable.ic_bookmark_white)
         }
     }
 }

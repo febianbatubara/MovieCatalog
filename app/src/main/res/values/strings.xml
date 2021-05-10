@@ -10,9 +10,12 @@
     <string name="overview">Overview</string>
     <string name="back_button">Back Button</string>
     <string name="share_button">Share Button</string>
+    <string name="bookmark_button">Bookmark to Favorite Button</string>
     <string name="share_movie_title">Share movie information to..</string>
     <string name="share_tv_show_title">Share tv show information to..</string>
     <string name="error_loading_message">Oops, something went wrong</string>
+    <string name="added_to_favorite">Added to favorites</string>
+    <string name="removed_from_favorite">Removed from favorites</string>
     <string name="share_movie_message">Check out this awesome movie.\n
         Title: %1$s\n
         Release date: %2$s

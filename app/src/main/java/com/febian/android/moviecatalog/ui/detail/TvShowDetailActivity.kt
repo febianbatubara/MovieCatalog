@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -20,6 +21,7 @@ import com.febian.android.moviecatalog.utils.NumberUtil
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 import com.febian.android.moviecatalog.vo.Resource
 import com.febian.android.moviecatalog.vo.Status
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class TvShowDetailActivity : AppCompatActivity() {
@@ -62,7 +64,11 @@ class TvShowDetailActivity : AppCompatActivity() {
                         showLoading(false)
                         tvShowResource.data?.let { tvShow ->
                             showDetail(tvShow)
+
                             tvShowDetailBinding.btnShare.setOnClickListener { shareData(tvShow) }
+                            val state = tvShow.favorited
+                            setFavoriteButtonState(state)
+                            tvShowDetailBinding.btnFavorite.setOnClickListener { setFavorite(state) }
                         }
                     }
                     Status.ERROR -> {
@@ -76,19 +82,6 @@ class TvShowDetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-    private fun shareData(tvShow: TvShowEntity) {
-        val shareIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(
-                Intent.EXTRA_TEXT,
-                getString(R.string.share_tv_show_message, tvShow.title, tvShow.releaseDate)
-            )
-            type = "text/plain"
-        }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_tv_show_title)))
-    }
 
     private fun showDetail(tvShow: TvShowEntity) {
         with(tvShowDetailBinding) {
@@ -116,6 +109,32 @@ class TvShowDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setFavorite(state: Boolean) {
+        viewModel.setFavoriteTvShow()
+
+        val textResource: String = if (state) {
+            getString(R.string.removed_from_favorite)
+        } else {
+            getString(R.string.added_to_favorite)
+        }
+        Snackbar.make(tvShowDetailBinding.activityDetail, textResource, Snackbar.LENGTH_LONG)
+            .setAction("Close") { }
+            .setActionTextColor(ContextCompat.getColor(this, R.color.gold))
+            .show()
+    }
+
+    private fun shareData(tvShow: TvShowEntity) {
+        val shareIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.share_tv_show_message, tvShow.title, tvShow.releaseDate)
+            )
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_tv_show_title)))
+    }
+
     private fun showLoading(state: Boolean) {
         with(tvShowDetailBinding) {
             if (state) {
@@ -131,6 +150,14 @@ class TvShowDetailActivity : AppCompatActivity() {
                 tvOverviewTitle.visibility = View.VISIBLE
                 detailShimmerContainer.visibility = View.GONE
             }
+        }
+    }
+
+    private fun setFavoriteButtonState(state: Boolean) {
+        if (state) {
+            tvShowDetailBinding.btnFavorite.setImageResource(R.drawable.ic_bookmarked_white)
+        } else {
+            tvShowDetailBinding.btnFavorite.setImageResource(R.drawable.ic_bookmark_white)
         }
     }
 }
