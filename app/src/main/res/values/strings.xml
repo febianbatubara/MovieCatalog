@@ -25,4 +25,5 @@
         Title: %1$s\n
         Release date: %2$s
     </string>
+    <string name="empty">Empty</string>
 </resources>

@@ -37,7 +37,7 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = FavoriteSectionsPagerAdapter(this, supportFragmentManager)
         activityFavoriteBinding.viewPagerFavorite.adapter = sectionsPagerAdapter
         activityFavoriteBinding.tabsFavorite.setupWithViewPager(activityFavoriteBinding.viewPagerFavorite)
     }

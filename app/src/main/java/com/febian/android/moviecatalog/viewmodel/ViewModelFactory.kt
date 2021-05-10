@@ -7,6 +7,8 @@ import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.di.Injection
 import com.febian.android.moviecatalog.ui.detail.MovieDetailViewModel
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailViewModel
+import com.febian.android.moviecatalog.ui.favorite.movie.FavMovieViewModel
+import com.febian.android.moviecatalog.ui.favorite.tvshow.FavTvShowViewModel
 import com.febian.android.moviecatalog.ui.movie.MovieViewModel
 import com.febian.android.moviecatalog.ui.tvshow.TvShowViewModel
 
@@ -39,6 +41,12 @@ class ViewModelFactory private constructor(private val mCatalogRepository: Catal
             }
             modelClass.isAssignableFrom(TvShowDetailViewModel::class.java) -> {
                 TvShowDetailViewModel(mCatalogRepository) as T
+            }
+            modelClass.isAssignableFrom(FavMovieViewModel::class.java) -> {
+                FavMovieViewModel(mCatalogRepository) as T
+            }
+            modelClass.isAssignableFrom(FavTvShowViewModel::class.java) -> {
+                FavTvShowViewModel(mCatalogRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
