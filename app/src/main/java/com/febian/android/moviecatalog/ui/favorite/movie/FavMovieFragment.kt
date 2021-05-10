@@ -83,10 +83,6 @@ class FavMovieFragment : Fragment(), FavoriteActivity.DataSortListener {
         }
     }
 
-    override fun onDataSorted(sort: String) {
-        viewModel.getFavoriteMovies(sort).observe(viewLifecycleOwner, movieObserver)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as FavoriteActivity).registerDataSortListener(this)
@@ -95,5 +91,9 @@ class FavMovieFragment : Fragment(), FavoriteActivity.DataSortListener {
     override fun onDestroy() {
         super.onDestroy()
         (activity as FavoriteActivity).unregisterDataSortListener(this)
+    }
+
+    override fun onDataSorted(sort: String) {
+        viewModel.getFavoriteMovies(sort).observe(viewLifecycleOwner, movieObserver)
     }
 }

@@ -18,7 +18,7 @@ interface CatalogDataSource {
 
     fun getFavoritedMovies(sort: String): LiveData<PagedList<MovieEntity>>
 
-    fun getFavoritedTvShows(): LiveData<PagedList<TvShowEntity>>
+    fun getFavoritedTvShows(sort: String): LiveData<PagedList<TvShowEntity>>
 
     fun setFavoriteMovie(movie: MovieEntity, state: Boolean)
 

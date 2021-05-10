@@ -37,8 +37,8 @@ class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
     fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity> =
         mCatalogDao.getTvShowDetail(tvShowId)
 
-    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity> =
-        mCatalogDao.getFavoritedTvShows()
+    fun getFavoritedTvShows(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowEntity> =
+        mCatalogDao.getFavoritedTvShows(query)
 
     fun insertTvShows(tvShows: List<TvShowEntity>) = mCatalogDao.insertTvShows(tvShows)
 

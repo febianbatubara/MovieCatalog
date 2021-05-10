@@ -28,8 +28,8 @@ interface CatalogDao {
     @Query("SELECT * FROM tv_show_entities")
     fun getTvShows(): DataSource.Factory<Int, TvShowEntity>
 
-    @Query("SELECT * FROM tv_show_entities where favorited == 1")
-    fun getFavoritedTvShows(): DataSource.Factory<Int, TvShowEntity>
+    @RawQuery(observedEntities = [TvShowEntity::class])
+    fun getFavoritedTvShows(query: SupportSQLiteQuery): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tv_show_entities WHERE tvShowId = :tvShowId")
     fun getTvShowDetail(tvShowId: Int): LiveData<TvShowEntity>

@@ -52,6 +52,7 @@ class FavoriteActivity : AppCompatActivity() {
                 R.id.action_title_desc -> sort = SortUtils.TITLE_DESC
                 R.id.action_title_asc -> sort = SortUtils.TITLE_ASC
                 R.id.action_best_rating -> sort = SortUtils.BEST_RATING
+                R.id.action_random_sort -> sort = SortUtils.RANDOM
             }
             menuItem.isChecked = true
             for (listener in sortListeners) {

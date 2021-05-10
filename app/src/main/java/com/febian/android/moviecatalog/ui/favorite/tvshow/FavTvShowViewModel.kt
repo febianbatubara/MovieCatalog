@@ -8,6 +8,6 @@ import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 
 class FavTvShowViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
 
-    fun getFavoriteTvShows(): LiveData<PagedList<TvShowEntity>> =
-        catalogRepository.getFavoritedTvShows()
+    fun getFavoriteTvShows(sort: String): LiveData<PagedList<TvShowEntity>> =
+        catalogRepository.getFavoritedTvShows(sort)
 }

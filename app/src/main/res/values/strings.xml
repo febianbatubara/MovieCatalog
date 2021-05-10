@@ -29,4 +29,5 @@
     <string name="menu_title_asc">Title Ascending</string>
     <string name="menu_title_desc">Title Descending</string>
     <string name="menu_best_rating">Best Rating</string>
+    <string name="menu_random_sort">Random Sort</string>
 </resources>

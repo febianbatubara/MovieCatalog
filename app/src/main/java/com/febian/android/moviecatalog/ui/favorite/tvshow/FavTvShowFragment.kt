@@ -1,5 +1,6 @@
 package com.febian.android.moviecatalog.ui.favorite.tvshow
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,16 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
+import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
 import com.febian.android.moviecatalog.ui.tvshow.TvShowAdapter
+import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 
-class FavTvShowFragment : Fragment() {
+class FavTvShowFragment : Fragment(), FavoriteActivity.DataSortListener {
 
     private lateinit var tvShowBinding: FragmentTvShowBinding
     private val tvShowAdapter by lazy { TvShowAdapter() }
+    private lateinit var viewModel: FavTvShowViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +36,14 @@ class FavTvShowFragment : Fragment() {
 
         if (activity != null) {
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
                 factory
             )[FavTvShowViewModel::class.java]
 
             showLoading(true)
-            viewModel.getFavoriteTvShows().observe(viewLifecycleOwner, tvShowsObserver)
+            viewModel.getFavoriteTvShows(SortUtils.TITLE_ASC)
+                .observe(viewLifecycleOwner, tvShowsObserver)
             setUpRecyclerView()
         }
     }
@@ -76,5 +81,19 @@ class FavTvShowFragment : Fragment() {
             tvShowBinding.ivEmptyItem.visibility = View.GONE
             tvShowBinding.tvEmptyItem.visibility = View.GONE
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as FavoriteActivity).registerDataSortListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as FavoriteActivity).unregisterDataSortListener(this)
+    }
+
+    override fun onDataSorted(sort: String) {
+        viewModel.getFavoriteTvShows(sort).observe(viewLifecycleOwner, tvShowsObserver)
     }
 }
