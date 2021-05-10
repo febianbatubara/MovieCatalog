@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
@@ -42,10 +43,10 @@ class FavMovieFragment : Fragment() {
         }
     }
 
-    private val movieObserver: Observer<List<MovieEntity>> =
+    private val movieObserver: Observer<PagedList<MovieEntity>> =
         Observer { movies ->
             showLoading(false)
-            movies.let { movieAdapter.setMovies(it) }
+            movieAdapter.submitList(movies)
             showEmptyItem(movies.isNullOrEmpty())
         }
 

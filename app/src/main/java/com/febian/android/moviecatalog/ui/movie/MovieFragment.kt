@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
@@ -44,15 +45,14 @@ class MovieFragment : Fragment() {
         }
     }
 
-    private val movieObserver: Observer<Resource<List<MovieEntity>>> =
+    private val movieObserver: Observer<Resource<PagedList<MovieEntity>>> =
         Observer { movies ->
             if (movies != null) {
                 when (movies.status) {
                     Status.LOADING -> showLoading(true)
                     Status.SUCCESS -> {
                         showLoading(false)
-                        movieAdapter.setMovies(movies.data)
-                        movieAdapter.notifyDataSetChanged()
+                        movieAdapter.submitList(movies.data)
                     }
                     Status.ERROR -> {
                         showLoading(false)

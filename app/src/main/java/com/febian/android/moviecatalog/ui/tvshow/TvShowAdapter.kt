@@ -3,6 +3,8 @@ package com.febian.android.moviecatalog.ui.tvshow
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,15 +15,19 @@ import com.febian.android.moviecatalog.ui.detail.TvShowDetailActivity
 import com.febian.android.moviecatalog.utils.Constant
 import com.febian.android.moviecatalog.utils.NumberUtil
 
-class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
+class TvShowAdapter :
+    PagedListAdapter<TvShowEntity, TvShowAdapter.TvShowViewHolder>(DIFF_CALLBACK) {
 
-    private var listTvShow = ArrayList<TvShowEntity>()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.tvShowId == newItem.tvShowId
+            }
 
-    fun setTvShows(tvShows: List<TvShowEntity>?) {
-        if (tvShows == null) return
-        this.listTvShow.clear()
-        this.listTvShow.addAll(tvShows)
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowViewHolder {
@@ -31,11 +37,11 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        val tvShow = listTvShow[position]
-        holder.bind(tvShow)
+        val tvShow = getItem(position)
+        if (tvShow != null) {
+            holder.bind(tvShow)
+        }
     }
-
-    override fun getItemCount(): Int = listTvShow.size
 
     class TvShowViewHolder(private val binding: ItemsContentBinding) :
         RecyclerView.ViewHolder(binding.root) {

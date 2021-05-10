@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
@@ -44,15 +45,14 @@ class TvShowFragment : Fragment() {
         }
     }
 
-    private val tvShowsObserver: Observer<Resource<List<TvShowEntity>>> =
+    private val tvShowsObserver: Observer<Resource<PagedList<TvShowEntity>>> =
         Observer { tvShows ->
             if (tvShows != null) {
                 when (tvShows.status) {
                     Status.LOADING -> showLoading(true)
                     Status.SUCCESS -> {
                         showLoading(false)
-                        tvShowAdapter.setTvShows(tvShows.data)
-                        tvShowAdapter.notifyDataSetChanged()
+                        tvShowAdapter.submitList(tvShows.data)
                     }
                     Status.ERROR -> {
                         showLoading(false)
