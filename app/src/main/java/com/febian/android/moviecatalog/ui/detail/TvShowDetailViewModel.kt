@@ -9,7 +9,8 @@ import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.vo.Resource
 import javax.inject.Inject
 
-class TvShowDetailViewModel @Inject constructor(private val catalogRepository: CatalogRepository) : ViewModel() {
+class TvShowDetailViewModel @Inject constructor(private val catalogRepository: CatalogRepository) :
+    ViewModel() {
 
     val tvShowId = MutableLiveData<Int>()
 

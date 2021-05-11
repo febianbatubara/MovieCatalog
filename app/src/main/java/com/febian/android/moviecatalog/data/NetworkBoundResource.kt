@@ -2,8 +2,8 @@ package com.febian.android.moviecatalog.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.febian.android.moviecatalog.data.source.remote.ApiResponse
-import com.febian.android.moviecatalog.data.source.remote.StatusResponse
+import com.febian.android.moviecatalog.data.source.remote.vo.ApiResponse
+import com.febian.android.moviecatalog.data.source.remote.vo.StatusResponse
 import com.febian.android.moviecatalog.utils.AppExecutors
 import com.febian.android.moviecatalog.vo.Resource
 

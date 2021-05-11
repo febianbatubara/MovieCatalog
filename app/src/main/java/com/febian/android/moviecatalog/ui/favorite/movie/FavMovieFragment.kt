@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
-import com.febian.android.moviecatalog.ui.favorite.tvshow.FavTvShowViewModel
 import com.febian.android.moviecatalog.ui.movie.MovieAdapter
 import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
@@ -27,7 +25,7 @@ class FavMovieFragment : DaggerFragment(), FavoriteActivity.DataSortListener {
     private lateinit var viewModel: FavMovieViewModel
 
     @Inject
-    lateinit var factory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +41,7 @@ class FavMovieFragment : DaggerFragment(), FavoriteActivity.DataSortListener {
         if (activity != null) {
             viewModel = ViewModelProvider(
                 this,
-                factory
+                viewModelFactory
             )[FavMovieViewModel::class.java]
 
             showLoading(true)

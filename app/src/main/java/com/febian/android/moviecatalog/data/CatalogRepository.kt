@@ -6,40 +6,24 @@ import androidx.paging.PagedList
 import com.febian.android.moviecatalog.data.source.local.LocalDataSource
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
-import com.febian.android.moviecatalog.data.source.remote.ApiResponse
 import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
 import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
 import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
+import com.febian.android.moviecatalog.data.source.remote.vo.ApiResponse
 import com.febian.android.moviecatalog.utils.AppExecutors
 import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.utils.SortUtils.MOVIE_ENTITY
 import com.febian.android.moviecatalog.utils.SortUtils.TV_SHOW_ENTITY
 import com.febian.android.moviecatalog.vo.Resource
+import javax.inject.Inject
 
-class CatalogRepository(
+class CatalogRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) :
-    CatalogDataSource {
+) : CatalogDataSource {
 
     companion object {
-        @Volatile
-        private var instance: CatalogRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): CatalogRepository =
-            instance ?: synchronized(this) {
-                instance ?: CatalogRepository(
-                    remoteData,
-                    localData,
-                    appExecutors
-                ).apply { instance = this }
-            }
-
         private val pagingConfig = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)

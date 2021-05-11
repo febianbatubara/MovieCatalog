@@ -9,8 +9,8 @@ import dagger.android.ContributesAndroidInjector
 abstract class HomeBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeMovieFragment() : MovieFragment
+    abstract fun injectMovieFragment(): MovieFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeTvShowFragment() : TvShowFragment
+    abstract fun injectTvShowFragment(): TvShowFragment
 }

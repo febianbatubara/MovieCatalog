@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.febian.android.moviecatalog.data.source.remote.api.ApiInterface
 import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
 import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse
+import com.febian.android.moviecatalog.data.source.remote.vo.ApiResponse
 import com.febian.android.moviecatalog.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

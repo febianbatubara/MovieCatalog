@@ -3,6 +3,7 @@ package com.febian.android.moviecatalog.utils
 import androidx.sqlite.db.SimpleSQLiteQuery
 
 object SortUtils {
+
     const val TITLE_ASC = "Title Asc"
     const val TITLE_DESC = "Title Desc"
     const val BEST_RATING = "Best Rating"

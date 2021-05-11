@@ -35,7 +35,7 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
     private lateinit var viewModel: MovieDetailViewModel
 
     @Inject
-    lateinit var factory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this,
-            factory
+            viewModelFactory
         )[MovieDetailViewModel::class.java]
 
         showLoading(true)
@@ -144,12 +144,14 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
                 ivPoster.visibility = View.GONE
                 ivPosterBg.visibility = View.GONE
                 tvReleaseDate.visibility = View.GONE
+                tvRating.visibility = View.GONE
                 tvOverviewTitle.visibility = View.GONE
                 detailShimmerContainer.visibility = View.VISIBLE
             } else {
                 ivPoster.visibility = View.VISIBLE
                 ivPosterBg.visibility = View.VISIBLE
                 tvReleaseDate.visibility = View.VISIBLE
+                tvRating.visibility = View.VISIBLE
                 tvOverviewTitle.visibility = View.VISIBLE
                 detailShimmerContainer.visibility = View.GONE
             }

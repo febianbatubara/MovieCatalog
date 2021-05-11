@@ -9,8 +9,8 @@ import dagger.android.ContributesAndroidInjector
 abstract class FavoriteBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeFavMovieFragment(): FavMovieFragment
+    abstract fun injectFavMovieFragment(): FavMovieFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeFavTvShowFragment(): FavTvShowFragment
+    abstract fun injectFavTvShowFragment(): FavTvShowFragment
 }

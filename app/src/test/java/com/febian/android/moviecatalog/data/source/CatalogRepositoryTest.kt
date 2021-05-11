@@ -1,28 +1,34 @@
 package com.febian.android.moviecatalog.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.febian.android.moviecatalog.data.FakeCatalogRepository
+import com.febian.android.moviecatalog.data.source.local.LocalDataSource
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.RemoteDataSource
-import com.febian.android.moviecatalog.utils.DummyDataFactory
-import com.febian.android.moviecatalog.utils.LiveDataTestUtil
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doAnswer
-import com.nhaarman.mockitokotlin2.eq
+import com.febian.android.moviecatalog.utils.*
+import com.febian.android.moviecatalog.vo.Resource
+import com.nhaarman.mockitokotlin2.doNothing
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
 
 class CatalogRepositoryTest {
 
     @get: Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = Mockito.mock(RemoteDataSource::class.java)
-    private val catalogRepository = FakeCatalogRepository(remote)
+    private val remote = mock(RemoteDataSource::class.java)
+    private val local = mock(LocalDataSource::class.java)
+    private val testExecutors: AppExecutors = AppExecutors(TestExecutor(), TestExecutor())
+    private val catalogRepository = FakeCatalogRepository(remote, local, testExecutors)
 
     private val movieResponses = DummyDataFactory.generateDummyMovies()
     private val movieResponse = DummyDataFactory.generateDummyMovies()[0]
@@ -31,67 +37,96 @@ class CatalogRepositoryTest {
     private val tvShowResponse = DummyDataFactory.generateDummyTvShows()[0]
     private val tvShowId = tvShowResponse.tvShowId
 
+    private val movieDataSource =
+        mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+    private val tvShowDataSource =
+        mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
+
     @Test
     fun getPopularMovies() {
-        runBlocking {
-            doAnswer { invocation ->
-                (invocation.arguments[0] as RemoteDataSource.LoadMoviesCallback).onAllMoviesReceived(
-                    movieResponses
-                )
-                null
-            }.`when`(remote).getPopularMovies(any())
-        }
-        val movieEntities = LiveDataTestUtil.getValue(catalogRepository.getPopularMovies())
-        runBlocking { verify(remote).getPopularMovies(any()) }
-        assertNotNull(movieEntities)
-        assertEquals(movieResponses.size.toLong(), movieEntities.size.toLong())
+        Mockito.`when`(local.getAllMovies()).thenReturn(movieDataSource)
+        catalogRepository.getPopularMovies()
+
+        val movieEntities =
+            Resource.success(PagedListUtil.mockPagedList(DummyDataFactory.generateDummyMovies()))
+        verify(local).getAllMovies()
+        assertNotNull(movieEntities.data)
+        movieEntities.data?.size?.let { assertEquals(movieResponses.size.toLong(), it.toLong()) }
     }
 
     @Test
-    fun getPopularTvShows() {
-        runBlocking {
-            doAnswer { invocation ->
-                (invocation.arguments[0] as RemoteDataSource.LoadTvShowsCallback).onAllTvShowsReceived(
-                    tvShowResponses
-                )
-                null
-            }.`when`(remote).getPopularTvShows(any())
-        }
-        val tvShowEntities = LiveDataTestUtil.getValue(catalogRepository.getPopularTvShows())
-        runBlocking { verify(remote).getPopularTvShows(any()) }
-        assertNotNull(tvShowEntities)
-        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.size.toLong())
+    fun getFavoriteMovies() {
+        val sortType = SortUtils.TITLE_ASC
+        val query = SortUtils.getSortedQuery(sortType, SortUtils.MOVIE_ENTITY)
+        Mockito.`when`(local.getFavoritedMovies(query)).thenReturn(movieDataSource)
+
+        val movieEntities =
+            Resource.success(PagedListUtil.mockPagedList(DummyDataFactory.generateDummyMovies()))
+        assertNotNull(movieEntities.data)
+        assertEquals(movieResponses.size.toLong(), movieEntities.data?.size?.toLong())
     }
 
     @Test
     fun getMovieDetail() {
-        runBlocking {
-            doAnswer { invocation ->
-                (invocation.arguments[1] as RemoteDataSource.LoadMovieDetailCallback).onMovieDetailReceived(
-                    movieResponse
-                )
-                null
-            }.`when`(remote).getMovieDetail(eq(movieId), any())
-        }
-        val movieEntity = LiveDataTestUtil.getValue(catalogRepository.getMovieDetail(movieId))
-        runBlocking { verify(remote).getMovieDetail(eq(movieId), any()) }
-        assertNotNull(movieEntity)
-        assertEquals(movieResponse.movieId, movieEntity.movieId)
+        val dummyMovie = MutableLiveData<MovieEntity>()
+        dummyMovie.value = movieResponse
+        Mockito.`when`(local.getMovieDetail(movieId)).thenReturn(dummyMovie)
+
+        val liveDataValue = LiveDataTestUtil.getValue(catalogRepository.getMovieDetail(movieId))
+        Mockito.verify(local).getMovieDetail(movieId)
+        assertNotNull(liveDataValue)
+        assertEquals(movieId, liveDataValue.data?.movieId)
+    }
+
+    @Test
+    fun setFavoriteMovie() {
+        doNothing().`when`(local).setMovieFavorite(movieResponse, true)
+        catalogRepository.setFavoriteMovie(movieResponse, true)
+
+        verify(local, times(1)).setMovieFavorite(movieResponse, true)
+    }
+
+    @Test
+    fun getPopularTvShows() {
+        Mockito.`when`(local.getAllTvShows()).thenReturn(tvShowDataSource)
+        catalogRepository.getPopularTvShows()
+
+        val tvShowEntities =
+            Resource.success(PagedListUtil.mockPagedList(DummyDataFactory.generateDummyTvShows()))
+        verify(local).getAllTvShows()
+        assertNotNull(tvShowEntities.data)
+        tvShowEntities.data?.size?.let { assertEquals(tvShowResponses.size.toLong(), it.toLong()) }
+    }
+
+    @Test
+    fun getFavoriteTvShows() {
+        val sortType = SortUtils.TITLE_ASC
+        val query = SortUtils.getSortedQuery(sortType, SortUtils.TV_SHOW_ENTITY)
+        Mockito.`when`(local.getFavoritedTvShows(query)).thenReturn(tvShowDataSource)
+
+        val tvShowEntities =
+            Resource.success(PagedListUtil.mockPagedList(DummyDataFactory.generateDummyTvShows()))
+        assertNotNull(tvShowEntities.data)
+        assertEquals(tvShowResponses.size.toLong(), tvShowEntities.data?.size?.toLong())
     }
 
     @Test
     fun getTvShowDetail() {
-        runBlocking {
-            doAnswer { invocation ->
-                (invocation.arguments[1] as RemoteDataSource.LoadTvShowDetailCallback).onTvShowDetailReceived(
-                    tvShowResponse
-                )
-                null
-            }.`when`(remote).getTvShowDetail(eq(tvShowId), any())
-        }
-        val tvShowEntity = LiveDataTestUtil.getValue(catalogRepository.getTvShowDetail(tvShowId))
-        runBlocking { verify(remote).getTvShowDetail(eq(tvShowId), any()) }
-        assertNotNull(tvShowEntity)
-        assertEquals(tvShowResponse.tvShowId, tvShowEntity.tvShowId)
+        val dummyTvShow = MutableLiveData<TvShowEntity>()
+        dummyTvShow.value = tvShowResponse
+        Mockito.`when`(local.getTvShowDetail(tvShowId)).thenReturn(dummyTvShow)
+
+        val liveDataValue = LiveDataTestUtil.getValue(catalogRepository.getTvShowDetail(tvShowId))
+        Mockito.verify(local).getTvShowDetail(tvShowId)
+        assertNotNull(liveDataValue)
+        assertEquals(tvShowId, liveDataValue.data?.tvShowId)
+    }
+
+    @Test
+    fun setFavoriteTvShow() {
+        doNothing().`when`(local).setTvShowFavorite(tvShowResponse, true)
+        catalogRepository.setFavoriteTvShow(tvShowResponse, true)
+
+        verify(local, times(1)).setTvShowFavorite(tvShowResponse, true)
     }
 }

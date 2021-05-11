@@ -1,4 +1,4 @@
-package com.febian.android.moviecatalog.data.source.remote
+package com.febian.android.moviecatalog.data.source.remote.vo
 
 enum class StatusResponse {
     SUCCESS,
