@@ -1,8 +1,6 @@
 package com.febian.android.moviecatalog.data.source.remote.api
 
 import com.febian.android.moviecatalog.BuildConfig
-import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
-import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.remote.response.MovieResponse
 import com.febian.android.moviecatalog.data.source.remote.response.Response
 import com.febian.android.moviecatalog.data.source.remote.response.TvShowResponse

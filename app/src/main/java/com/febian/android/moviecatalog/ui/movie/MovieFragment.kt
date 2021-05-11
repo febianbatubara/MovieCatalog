@@ -16,11 +16,17 @@ import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 import com.febian.android.moviecatalog.vo.Resource
 import com.febian.android.moviecatalog.vo.Status
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class MovieFragment : Fragment() {
+class MovieFragment : DaggerFragment() {
 
     private lateinit var movieBinding: FragmentMovieBinding
     private val movieAdapter by lazy { MovieAdapter() }
+    private lateinit var viewModel: MovieViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +40,7 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
                 factory
             )[MovieViewModel::class.java]

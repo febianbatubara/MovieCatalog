@@ -16,11 +16,17 @@ import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 import com.febian.android.moviecatalog.vo.Resource
 import com.febian.android.moviecatalog.vo.Status
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class TvShowFragment : Fragment() {
+class TvShowFragment : DaggerFragment() {
 
     private lateinit var tvShowBinding: FragmentTvShowBinding
     private val tvShowAdapter by lazy { TvShowAdapter() }
+    private lateinit var viewModel: TvShowViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +40,7 @@ class TvShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
                 factory
             )[TvShowViewModel::class.java]

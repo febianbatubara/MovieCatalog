@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.PopupMenu
-import androidx.appcompat.app.AppCompatActivity
 import com.febian.android.moviecatalog.R
 import com.febian.android.moviecatalog.databinding.ActivityFavoriteBinding
 import com.febian.android.moviecatalog.utils.SortUtils
+import dagger.android.support.DaggerAppCompatActivity
 
-class FavoriteActivity : AppCompatActivity() {
+class FavoriteActivity : DaggerAppCompatActivity() {
 
     private lateinit var activityFavoriteBinding: ActivityFavoriteBinding
 

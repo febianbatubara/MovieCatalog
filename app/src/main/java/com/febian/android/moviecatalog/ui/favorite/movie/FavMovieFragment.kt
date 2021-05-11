@@ -13,15 +13,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
+import com.febian.android.moviecatalog.ui.favorite.tvshow.FavTvShowViewModel
 import com.febian.android.moviecatalog.ui.movie.MovieAdapter
 import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class FavMovieFragment : Fragment(), FavoriteActivity.DataSortListener {
+class FavMovieFragment : DaggerFragment(), FavoriteActivity.DataSortListener {
 
     private lateinit var movieBinding: FragmentMovieBinding
     private val movieAdapter by lazy { MovieAdapter() }
     private lateinit var viewModel: FavMovieViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +41,6 @@ class FavMovieFragment : Fragment(), FavoriteActivity.DataSortListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(
                 this,
                 factory

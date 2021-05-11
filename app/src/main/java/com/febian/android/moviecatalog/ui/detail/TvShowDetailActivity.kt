@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,9 +21,11 @@ import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
 import com.febian.android.moviecatalog.vo.Resource
 import com.febian.android.moviecatalog.vo.Status
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerAppCompatActivity
 import java.util.*
+import javax.inject.Inject
 
-class TvShowDetailActivity : AppCompatActivity() {
+class TvShowDetailActivity : DaggerAppCompatActivity() {
 
     companion object {
         const val EXTRA_TV_SHOW = "extra_tv_show"
@@ -33,18 +34,20 @@ class TvShowDetailActivity : AppCompatActivity() {
     private lateinit var tvShowDetailBinding: ActivityDetailBinding
     private lateinit var viewModel: TvShowDetailViewModel
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tvShowDetailBinding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(tvShowDetailBinding.root)
 
-        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(
             this,
             factory
         )[TvShowDetailViewModel::class.java]
-        showLoading(true)
 
+        showLoading(true)
         val extras = intent.extras
         if (extras != null) {
             val tvShowId = extras.getInt(EXTRA_TV_SHOW)

@@ -6,15 +6,9 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.data.source.local.room.CatalogDao
+import javax.inject.Inject
 
-class LocalDataSource private constructor(private val mCatalogDao: CatalogDao) {
-
-    companion object {
-        private var INSTANCE: LocalDataSource? = null
-
-        fun getInstance(catalogDao: CatalogDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(catalogDao)
-    }
+class LocalDataSource @Inject constructor(private val mCatalogDao: CatalogDao) {
 
     fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mCatalogDao.getMovies()
 

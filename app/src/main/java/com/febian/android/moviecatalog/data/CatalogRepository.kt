@@ -16,7 +16,7 @@ import com.febian.android.moviecatalog.utils.SortUtils.MOVIE_ENTITY
 import com.febian.android.moviecatalog.utils.SortUtils.TV_SHOW_ENTITY
 import com.febian.android.moviecatalog.vo.Resource
 
-class CatalogRepository private constructor(
+class CatalogRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors

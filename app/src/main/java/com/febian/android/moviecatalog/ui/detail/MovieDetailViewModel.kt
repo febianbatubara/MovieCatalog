@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.febian.android.moviecatalog.data.CatalogRepository
 import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.vo.Resource
+import javax.inject.Inject
 
-class MovieDetailViewModel(private val catalogRepository: CatalogRepository) : ViewModel() {
+class MovieDetailViewModel @Inject constructor(private val catalogRepository: CatalogRepository) : ViewModel() {
 
     val movieId = MutableLiveData<Int>()
 

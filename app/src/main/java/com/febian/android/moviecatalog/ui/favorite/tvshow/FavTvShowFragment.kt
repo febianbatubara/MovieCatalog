@@ -16,12 +16,17 @@ import com.febian.android.moviecatalog.ui.favorite.FavoriteActivity
 import com.febian.android.moviecatalog.ui.tvshow.TvShowAdapter
 import com.febian.android.moviecatalog.utils.SortUtils
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class FavTvShowFragment : Fragment(), FavoriteActivity.DataSortListener {
+class FavTvShowFragment : DaggerFragment(), FavoriteActivity.DataSortListener {
 
     private lateinit var tvShowBinding: FragmentTvShowBinding
     private val tvShowAdapter by lazy { TvShowAdapter() }
     private lateinit var viewModel: FavTvShowViewModel
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +40,6 @@ class FavTvShowFragment : Fragment(), FavoriteActivity.DataSortListener {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
             viewModel = ViewModelProvider(
                 this,
                 factory

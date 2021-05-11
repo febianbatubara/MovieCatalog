@@ -6,7 +6,6 @@
     android:id="@+id/fragment_movie"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     tools:context=".ui.movie.MovieFragment">

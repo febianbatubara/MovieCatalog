@@ -60,8 +60,13 @@ dependencies {
 
     //database
     implementation "androidx.room:room-runtime:$roomRuntimeVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt "androidx.room:room-compiler:$roomVersion"
+
+    //di
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"

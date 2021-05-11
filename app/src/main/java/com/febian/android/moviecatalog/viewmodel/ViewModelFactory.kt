@@ -1,31 +1,18 @@
 package com.febian.android.moviecatalog.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.febian.android.moviecatalog.data.CatalogRepository
-import com.febian.android.moviecatalog.di.Injection
 import com.febian.android.moviecatalog.ui.detail.MovieDetailViewModel
 import com.febian.android.moviecatalog.ui.detail.TvShowDetailViewModel
 import com.febian.android.moviecatalog.ui.favorite.movie.FavMovieViewModel
 import com.febian.android.moviecatalog.ui.favorite.tvshow.FavTvShowViewModel
 import com.febian.android.moviecatalog.ui.movie.MovieViewModel
 import com.febian.android.moviecatalog.ui.tvshow.TvShowViewModel
+import javax.inject.Inject
 
-class ViewModelFactory private constructor(private val mCatalogRepository: CatalogRepository) :
+class ViewModelFactory @Inject constructor(private val mCatalogRepository: CatalogRepository) :
     ViewModelProvider.NewInstanceFactory() {
-
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context)).apply {
-                    instance = this
-                }
-            }
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -50,6 +37,5 @@ class ViewModelFactory private constructor(private val mCatalogRepository: Catal
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
-
     }
 }
