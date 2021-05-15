@@ -1,29 +1,29 @@
-package com.febian.android.moviecatalog.data
+package com.febian.android.moviecatalog.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class TvShowEntity(
+data class MovieResponse(
 
     @field:SerializedName("id")
-    var tvShowId: Int,
+    var movieId: Int,
 
-    @field:SerializedName("name")
+    @field:SerializedName("title")
     var title: String,
 
     @field:SerializedName("overview")
     var description: String,
 
-    @field:SerializedName("first_air_date")
+    @field:SerializedName("tagline")
+    var tagline: String,
+
+    @field:SerializedName("release_date")
     var releaseDate: String,
-
-    @field:SerializedName("genre_ids")
-    var genreIds: List<Int>? = listOf(),
-
-    @field:SerializedName("genres")
-    var genres: List<GenreEntity>? = listOf(),
 
     @field:SerializedName("vote_average")
     var rating: Float,
+
+    @field:SerializedName("vote_count")
+    var voteCount: Int,
 
     @field:SerializedName("poster_path")
     var posterPath: String,

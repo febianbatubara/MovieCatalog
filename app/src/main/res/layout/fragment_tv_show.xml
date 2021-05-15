@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     tools:context=".ui.tvshow.TvShowFragment">
@@ -47,5 +46,33 @@
             <include layout="@layout/placeholder_item_content" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_empty_item"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/ic_empty_item"
+        android:translationZ="90dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tv_empty_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <TextView
+        android:id="@+id/tv_empty_item"
+        style="@style/TextContent.Bold"
+        android:layout_centerHorizontal="true"
+        android:text="@string/empty"
+        android:textSize="22sp"
+        android:translationZ="90dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.541" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

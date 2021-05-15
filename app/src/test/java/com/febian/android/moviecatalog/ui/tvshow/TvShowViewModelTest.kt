@@ -3,9 +3,10 @@ package com.febian.android.moviecatalog.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.febian.android.moviecatalog.data.TvShowEntity
-import com.febian.android.moviecatalog.data.source.CatalogRepository
-import com.febian.android.moviecatalog.utils.DummyDataFactory
+import androidx.paging.PagedList
+import com.febian.android.moviecatalog.data.CatalogRepository
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
+import com.febian.android.moviecatalog.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -14,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -28,7 +30,10 @@ class TvShowViewModelTest {
     private lateinit var catalogRepository: CatalogRepository
 
     @Mock
-    private lateinit var tvShowObserver: Observer<List<TvShowEntity>>
+    private lateinit var tvShowObserver: Observer<Resource<PagedList<TvShowEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -37,15 +42,16 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dummyTvShows = DummyDataFactory.generateDummyTvShows()
-        val tvShows = MutableLiveData<List<TvShowEntity>>()
+        val dummyTvShows = Resource.success(pagedList)
+        `when`(dummyTvShows.data?.size).thenReturn(10)
+        val tvShows = MutableLiveData<Resource<PagedList<TvShowEntity>>>()
         tvShows.value = dummyTvShows
 
-        Mockito.`when`(catalogRepository.getPopularTvShows()).thenReturn(tvShows)
-        val tvShowEntities = viewModel.getTvShows().value
+        `when`(catalogRepository.getPopularTvShows()).thenReturn(tvShows)
+        val tvShowEntities = viewModel.getTvShows().value?.data
         Mockito.verify(catalogRepository).getPopularTvShows()
         assertNotNull(tvShowEntities)
-        assertEquals(dummyTvShows.size, tvShowEntities?.size)
+        assertEquals(dummyTvShows.data?.size, tvShowEntities?.size)
 
         viewModel.getTvShows().observeForever(tvShowObserver)
         Mockito.verify(tvShowObserver).onChanged(dummyTvShows)

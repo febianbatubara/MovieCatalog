@@ -4,18 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.febian.android.moviecatalog.data.MovieEntity
+import com.febian.android.moviecatalog.R
+import com.febian.android.moviecatalog.data.source.local.entity.MovieEntity
 import com.febian.android.moviecatalog.databinding.FragmentMovieBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class MovieFragment : Fragment() {
+class MovieFragment : DaggerFragment() {
 
     private lateinit var movieBinding: FragmentMovieBinding
     private val movieAdapter by lazy { MovieAdapter() }
+    private lateinit var viewModel: MovieViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,22 +39,35 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance()
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
-                factory
+                viewModelFactory
             )[MovieViewModel::class.java]
 
-            showLoading(true)
             viewModel.getMovies().observe(viewLifecycleOwner, movieObserver)
             setUpRecyclerView()
         }
     }
 
-    private val movieObserver: Observer<List<MovieEntity>> =
+    private val movieObserver: Observer<Resource<PagedList<MovieEntity>>> =
         Observer { movies ->
-            showLoading(false)
-            movies?.let { movieAdapter.setMovies(it) }
+            if (movies != null) {
+                when (movies.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        movieAdapter.submitList(movies.data)
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            context,
+                            getString(R.string.error_loading_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
     private fun setUpRecyclerView() {

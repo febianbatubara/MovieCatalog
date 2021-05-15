@@ -4,13 +4,19 @@
     <string name="tv_shows">Tv Shows</string>
     <string name="title">Title</string>
     <string name="release_date">Release Date: %1$s</string>
-    <string name="genre">Genre</string>
+    <string name="tag_line">Tagline</string>
     <string name="rating">%1$s/10</string>
+    <string name="vote_count">(%1$s votes)</string>
     <string name="overview">Overview</string>
     <string name="back_button">Back Button</string>
     <string name="share_button">Share Button</string>
+    <string name="bookmark_button">Bookmark to Favorite Button</string>
+    <string name="my_favorites">My Favorites</string>
     <string name="share_movie_title">Share movie information to..</string>
     <string name="share_tv_show_title">Share tv show information to..</string>
+    <string name="error_loading_message">Oops, something went wrong</string>
+    <string name="added_to_favorite">Added to favorites</string>
+    <string name="removed_from_favorite">Removed from favorites</string>
     <string name="share_movie_message">Check out this awesome movie.\n
         Title: %1$s\n
         Release date: %2$s
@@ -19,4 +25,9 @@
         Title: %1$s\n
         Release date: %2$s
     </string>
+    <string name="empty">Empty</string>
+    <string name="menu_title_asc">Title Ascending</string>
+    <string name="menu_title_desc">Title Descending</string>
+    <string name="menu_best_rating">Best Rating</string>
+    <string name="menu_random_sort">Random Sort</string>
 </resources>

@@ -4,18 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.febian.android.moviecatalog.data.TvShowEntity
+import com.febian.android.moviecatalog.R
+import com.febian.android.moviecatalog.data.source.local.entity.TvShowEntity
 import com.febian.android.moviecatalog.databinding.FragmentTvShowBinding
 import com.febian.android.moviecatalog.viewmodel.ViewModelFactory
+import com.febian.android.moviecatalog.vo.Resource
+import com.febian.android.moviecatalog.vo.Status
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class TvShowFragment : Fragment() {
+class TvShowFragment : DaggerFragment() {
 
     private lateinit var tvShowBinding: FragmentTvShowBinding
     private val tvShowAdapter by lazy { TvShowAdapter() }
+    private lateinit var viewModel: TvShowViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,22 +39,35 @@ class TvShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance()
-            val viewModel = ViewModelProvider(
+            viewModel = ViewModelProvider(
                 this,
-                factory
+                viewModelFactory
             )[TvShowViewModel::class.java]
 
-            showLoading(true)
             viewModel.getTvShows().observe(viewLifecycleOwner, tvShowsObserver)
             setUpRecyclerView()
         }
     }
 
-    private val tvShowsObserver: Observer<List<TvShowEntity>> =
+    private val tvShowsObserver: Observer<Resource<PagedList<TvShowEntity>>> =
         Observer { tvShows ->
-            tvShows?.let { tvShowAdapter.setTvShows(it) }
-            showLoading(false)
+            if (tvShows != null) {
+                when (tvShows.status) {
+                    Status.LOADING -> showLoading(true)
+                    Status.SUCCESS -> {
+                        showLoading(false)
+                        tvShowAdapter.submitList(tvShows.data)
+                    }
+                    Status.ERROR -> {
+                        showLoading(false)
+                        Toast.makeText(
+                            context,
+                            getString(R.string.error_loading_message),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
 
     private fun setUpRecyclerView() {
